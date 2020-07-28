@@ -87,6 +87,8 @@ public class XFrame extends JFrame implements RenderingHintSource, ForegroundMan
      * @throws HeadlessException
      *             If {@code GraphicsEnvironment.isHeadless()} returns
      *             {@code true}
+     *
+     * @version 1.0
      */
     public XFrame( final String title, final boolean resizable ) throws HeadlessException {
         // Always call the superclass constructor first!
