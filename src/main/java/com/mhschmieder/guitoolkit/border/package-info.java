@@ -30,11 +30,10 @@
  * Project: https://github.com/mhschmieder/guitoolkit
  */
 /**
- * This package contains the GuiToolkit Library's basic utility classes that
- * aren't focused on deep AWT and/or Swing component hierarchy details.
+ * This package contains the GuiToolkit Library's custom border utilities.
  *
  * @version 1.0
  *
  * @author Mark Schmieder
  */
-package com.mhschmieder.guitoolkit;
+package com.mhschmieder.guitoolkit.border;
