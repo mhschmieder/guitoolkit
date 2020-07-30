@@ -38,22 +38,23 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 /**
- * {@code TextFieldCellRenderer} customizes the special {@link XCellRenderer}
- * further in order to focus on rendering aspects that are unique to text.
+ * {@code SpinnerCellRenderer} is a further specialization of
+ * {@link XCellRenderer} to handle cells that host spinners, which we generally
+ * want to fill the entire cell and which replace the current value display.
  *
  * @version 1.0
  *
  * @author Mark Schmieder
  */
-public class TextFieldCellRenderer extends XCellRenderer {
+public class SpinnerCellRenderer extends XCellRenderer {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
-    private static final long serialVersionUID     = -2489364149488561756L;
+    private static final long serialVersionUID     = 6162479275552501309L;
 
     /**
-     * Regular text is generally left-justified so that similar values are
-     * easier to detect than with centered or right-justified text.
+     * Spinners aren't likely to be used as row headers but may have a text
+     * label in that position so should be left-justified in such a case.
      */
     private static final int  ROW_HEADER_ALIGNMENT = SwingConstants.LEFT;
 
@@ -80,9 +81,36 @@ public class TextFieldCellRenderer extends XCellRenderer {
     //////////////////////////// Constructors ////////////////////////////////
 
     /**
-     * Constructs a Table Cell Renderer that is specialized for rendering text.
+     * Constructs a Table Cell Renderer that is specialized to host spinners in
+     * place of cell values, using the default background and foreground colors.
      *
-     * @param isRowHeader
+     * @param setAsRowHeader
+     *            {@code true} if this cell should be used as a row header
+     * @param cellAlignment
+     *            The alignment to use if this cell is not a row header
+     * @param fontSize
+     *            The preferred size of the fonts to be used by this table cell
+     *            renderer
+     *
+     * @version 1.0
+     */
+    public SpinnerCellRenderer( final boolean setAsRowHeader,
+                                final int cellAlignment,
+                                final float fontSize ) {
+        this( setAsRowHeader,
+              cellAlignment,
+              fontSize,
+              TableConstants.DEFAULT_HEADER_BACKGROUND_COLOR,
+              TableConstants.DEFAULT_HEADER_FOREGROUND_COLOR,
+              TableConstants.DEFAULT_CELL_BACKGROUND_COLOR,
+              TableConstants.DEFAULT_CELL_FOREGROUND_COLOR );
+    }
+
+    /**
+     * Constructs a Table Cell Renderer that is specialized to host spinners in
+     * place of cell values, using custom background and foreground colors.
+     *
+     * @param setAsRowHeader
      *            {@code true} if this cell should be used as a row header
      * @param cellAlignment
      *            The alignment to use if this cell is not a row header
@@ -100,15 +128,15 @@ public class TextFieldCellRenderer extends XCellRenderer {
      *
      * @version 1.0
      */
-    public TextFieldCellRenderer( final boolean isRowHeader,
-                                  final int cellAlignment,
-                                  final float fontSize,
-                                  final Color rowHeaderBackgroundColor,
-                                  final Color rowHeaderForegroundColor,
-                                  final Color cellBackgroundColor,
-                                  final Color cellForegroundColor ) {
+    public SpinnerCellRenderer( final boolean setAsRowHeader,
+                                final int cellAlignment,
+                                final float fontSize,
+                                final Color rowHeaderBackgroundColor,
+                                final Color rowHeaderForegroundColor,
+                                final Color cellBackgroundColor,
+                                final Color cellForegroundColor ) {
         // Always call the superclass constructor first!
-        super( isRowHeader, ROW_HEADER_ALIGNMENT, cellAlignment, fontSize );
+        super( setAsRowHeader, ROW_HEADER_ALIGNMENT, cellAlignment, fontSize );
 
         rowHeaderBackground = rowHeaderBackgroundColor;
         rowHeaderForeground = rowHeaderForegroundColor;
@@ -146,7 +174,6 @@ public class TextFieldCellRenderer extends XCellRenderer {
      *
      * @version 1.0
      */
-    @SuppressWarnings("nls")
     @Override
     public Component getTableCellRendererComponent( final JTable table,
                                                     final Object value,
@@ -154,7 +181,9 @@ public class TextFieldCellRenderer extends XCellRenderer {
                                                     final boolean hasFocus,
                                                     final int row,
                                                     final int column ) {
-        final String newValue = ( value instanceof String ) ? ( String ) value : "";
+        final Object newValue = ( value instanceof Number )
+            ? ( Number ) value
+            : ( value instanceof String ) ? ( String ) value : new Integer( 1 );
 
         final Component component = super.getTableCellRendererComponent( table,
                                                                          newValue,

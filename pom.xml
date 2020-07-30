@@ -21,9 +21,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/mhschmieder/graphicstoolkit</url>
-        <connection>scm:git:git://github.com/mhschmieder/graphicstoolkit.git</connection>
-        <developerConnection>scm:git:git@github.com:mhschmieder/graphicstoolkit.git</developerConnection>
+        <url>https://github.com/mhschmieder/guitoolkit</url>
+        <connection>scm:git:git://github.com/mhschmieder/guitoolkit.git</connection>
+        <developerConnection>scm:git:git@github.com:mhschmieder/guitoolkit.git</developerConnection>
     </scm>
 
     <developers>
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.mhschmieder</groupId>
             <artifactId>graphicstoolkit</artifactId>
-            <version>[0.9,)</version>
+            <version>[1.0,)</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

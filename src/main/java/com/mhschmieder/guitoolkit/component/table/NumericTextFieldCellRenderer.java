@@ -44,6 +44,10 @@ import javax.swing.SwingConstants;
  * {@link TextFieldCellRenderer} to deal with the specifics of numeric text
  * strings. This includes model/view syncing issues with the rendering of
  * positive numbers that may have been typed with the plus sign by the user.
+ *
+ * @version 1.0
+ *
+ * @author Mark Schmieder
  */
 public class NumericTextFieldCellRenderer extends TextFieldCellRenderer {
     /**
@@ -149,7 +153,7 @@ public class NumericTextFieldCellRenderer extends TextFieldCellRenderer {
      * Constructs a Table Cell Renderer that is specialized for rendering
      * numeric text, using custom background and foreground colors.
      *
-     * @param setAsRowHeader
+     * @param isRowHeader
      *            {@code true} if this cell should be used as a row header
      * @param fontSize
      *            The preferred size of the fonts to be used by this table cell
@@ -170,7 +174,7 @@ public class NumericTextFieldCellRenderer extends TextFieldCellRenderer {
      *
      * @version 1.0
      */
-    public NumericTextFieldCellRenderer( final boolean setAsRowHeader,
+    public NumericTextFieldCellRenderer( final boolean isRowHeader,
                                          final float fontSize,
                                          final Color rowHeaderBackgroundColor,
                                          final Color rowHeaderForegroundColor,
@@ -179,7 +183,7 @@ public class NumericTextFieldCellRenderer extends TextFieldCellRenderer {
                                          final String units,
                                          final boolean stripPositiveSign ) {
         // Always call the superclass constructor first!
-        super( setAsRowHeader,
+        super( isRowHeader,
                CELL_ALIGNMENT,
                fontSize,
                rowHeaderBackgroundColor,
@@ -322,4 +326,4 @@ public class NumericTextFieldCellRenderer extends TextFieldCellRenderer {
         return component;
     }
 
-}// class NumericTextFieldCellRenderer
+}

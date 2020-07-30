@@ -52,7 +52,13 @@ public final class TableConstants {
     /**
      * Swing starts column numbering at index 0.
      */
-    public static final int   COLUMN_ROW_HEADER               = 0;
+    public static final int                             COLUMN_ROW_HEADER                 = 0;
+
+    /**
+     * The default text to use to indicate that a table cell is legitimately
+     * blank.
+     */
+    @SuppressWarnings("nls") public static final String DEFAULT_BLANKING_TEXT             = "-";
 
     /**
      * The default {@link Color} to use for row header cell background.
@@ -60,21 +66,41 @@ public final class TableConstants {
      * This is a nice dark royal blue that used to be common for table headers
      * in many applications and reports. The Swing default is otherwise gray.
      */
-    public static final Color DEFAULT_HEADER_BACKGROUND_COLOR = new Color( 62, 86, 151 );
+    public static final Color                           DEFAULT_HEADER_BACKGROUND_COLOR   =
+                                                                                        new Color( 62,
+                                                                                                   86,
+                                                                                                   151 );
 
     /**
      * The default {@link Color} to use for row header cell foreground.
      */
-    public static final Color DEFAULT_HEADER_FOREGROUND_COLOR = Color.WHITE;
+    public static final Color                           DEFAULT_HEADER_FOREGROUND_COLOR   =
+                                                                                        Color.WHITE;
 
     /**
      * The default {@link Color} to use for regular cell background.
      */
-    public static final Color DEFAULT_CELL_BACKGROUND_COLOR   = Color.WHITE;
+    public static final Color                           DEFAULT_CELL_BACKGROUND_COLOR     =
+                                                                                      Color.WHITE;
 
     /**
      * The default {@link Color} to use for regular cell foreground.
      */
-    public static final Color DEFAULT_CELL_FOREGROUND_COLOR   = Color.BLACK;
+    public static final Color                           DEFAULT_CELL_FOREGROUND_COLOR     =
+                                                                                      Color.BLACK;
+
+    /**
+     * The default {@link Color} to use for blanking cell background.
+     */
+    public static final Color                           DEFAULT_BLANKING_BACKGROUND_COLOR =
+                                                                                          new Color( 202,
+                                                                                                     202,
+                                                                                                     70 );
+
+    /**
+     * The default {@link Color} to use for blanking cell foreground.
+     */
+    public static final Color                           DEFAULT_BLANKING_FOREGROUND_COLOR =
+                                                                                          Color.BLACK;
 
 }

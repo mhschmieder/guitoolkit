@@ -38,9 +38,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * {@code CellRenderer} is a custom base class that extends the
+ * {@code XCellRenderer} is a custom base class that extends
  * {@link DefaultTableCellRenderer} for the behavior and look to be used for
- * regular cells and/or row headers.
+ * regular cells vs. row headers (when present).
  * <p>
  * This class will usually not be used directly, as it is designed to be
  * sub-classed for type-specific behavior (such as for text, numbers, etc.).
@@ -49,7 +49,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Mark Schmieder
  */
-public class CellRenderer extends DefaultTableCellRenderer {
+public class XCellRenderer extends DefaultTableCellRenderer {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
@@ -93,10 +93,10 @@ public class CellRenderer extends DefaultTableCellRenderer {
      *
      * @version 1.0
      */
-    public CellRenderer( final boolean setAsRowHeader,
-                         final int rowHeaderCellAlignment,
-                         final int cellAlignment,
-                         final float fontSize ) {
+    public XCellRenderer( final boolean setAsRowHeader,
+                          final int rowHeaderCellAlignment,
+                          final int cellAlignment,
+                          final float fontSize ) {
         // Always call the superclass constructor first!
         super();
 
@@ -183,4 +183,4 @@ public class CellRenderer extends DefaultTableCellRenderer {
         return component;
     }
 
-}// class CellRenderer
+}

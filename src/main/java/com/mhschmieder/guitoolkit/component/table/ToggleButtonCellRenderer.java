@@ -39,10 +39,14 @@ import javax.swing.SwingConstants;
 
 /**
  * {@code ToggleButtonCellRenderer} is a further specialization of
- * {@link CellRenderer} to handle cells that host toggle buttons, which we
+ * {@link XCellRenderer} to handle cells that host toggle buttons, which we
  * generally want to fill the entire cell and which replace true/false text.
+ *
+ * @version 1.0
+ *
+ * @author Mark Schmieder
  */
-public class ToggleButtonCellRenderer extends CellRenderer {
+public class ToggleButtonCellRenderer extends XCellRenderer {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
@@ -71,22 +75,22 @@ public class ToggleButtonCellRenderer extends CellRenderer {
     private String            offLabel;
 
     /**
-     * The {@link Color} to use for toggle button background when on
+     * The {@link Color} to use for the toggle button background when on.
      */
     private final Color       onBackground;
 
     /**
-     * The {@link Color} to use for toggle button foreground when on
-     */
-    private final Color       onForeground;
-
-    /**
-     * The {@link Color} to use for toggle button background when off
+     * The {@link Color} to use for the toggle button background when off.
      */
     private final Color       offBackground;
 
     /**
-     * The {@link Color} to use for toggle button foreground when off
+     * The {@link Color} to use for the toggle button foreground when on.
+     */
+    private final Color       onForeground;
+
+    /**
+     * The {@link Color} to use for the toggle button foreground when off.
      */
     private final Color       offForeground;
 
@@ -107,20 +111,22 @@ public class ToggleButtonCellRenderer extends CellRenderer {
      *            The initial label to use for the toggle button when it is off
      * @param onBackgroundColor
      *            The {@link Color} to use for toggle button background when on
-     * @param onForegroundColor
-     *            The {@link Color} to use for toggle button foreground when on
      * @param offBackgroundColor
      *            The {@link Color} to use for toggle button background when off
+     * @param onForegroundColor
+     *            The {@link Color} to use for toggle button foreground when on
      * @param offForegroundColor
      *            The {@link Color} to use for toggle button foreground when off
+     *
+     * @version 1.0
      */
     public ToggleButtonCellRenderer( final boolean setAsRowHeader,
                                      final float fontSize,
                                      final String onButtonLabel,
                                      final String offButtonLabel,
                                      final Color onBackgroundColor,
-                                     final Color onForegroundColor,
                                      final Color offBackgroundColor,
+                                     final Color onForegroundColor,
                                      final Color offForegroundColor ) {
         // Always call the superclass constructor first!
         super( setAsRowHeader, ROW_HEADER_ALIGNMENT, CELL_ALIGNMENT, fontSize );
@@ -128,8 +134,8 @@ public class ToggleButtonCellRenderer extends CellRenderer {
         onLabel = onButtonLabel;
         offLabel = offButtonLabel;
         onBackground = onBackgroundColor;
-        onForeground = onForegroundColor;
         offBackground = offBackgroundColor;
+        onForeground = onForegroundColor;
         offForeground = offForegroundColor;
     }
 
@@ -246,4 +252,4 @@ public class ToggleButtonCellRenderer extends CellRenderer {
         return component;
     }
 
-}// class ToggleButtonCellRenderer
+}
