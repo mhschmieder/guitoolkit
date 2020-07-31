@@ -32,17 +32,13 @@
 package com.mhschmieder.guitoolkit.component;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.util.HashSet;
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.JTable;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 import com.mhschmieder.guitoolkit.component.table.DataViewCellRenderer;
@@ -55,7 +51,7 @@ import com.mhschmieder.guitoolkit.component.table.DataViewTableModel;
  * <p>
  * This component has a specific style applied, for blending in with the
  * background (as opposed to usual black text on white background) and skipping
- * the horizontal and vertical grid lines.
+ * the horizontal and vertical grid lines. Additionally, there is no header.
  *
  * @version 1.0
  *
@@ -70,12 +66,12 @@ public abstract class DataViewXComponent extends XComponent {
     /**
      * The Table that hosts the read-only parameter set representing the data.
      */
-    protected XTable                   table;
+    protected JTable                   table;
 
     /**
      * The Table Model that defines the data type for each column in the Table.
      */
-    private DataViewTableModel         tableModel;
+    private TableModel                 tableModel;
 
     /**
      * The custom cell renderer for read-only table data.
@@ -172,7 +168,7 @@ public abstract class DataViewXComponent extends XComponent {
     //////////////////////// Vectorization methods ///////////////////////////
 
     /**
-     * This method vectorizes the vector source, usually via paintComponent().
+     * This method vectorizes the table, via direct custom graphics calls.
      *
      * @param graphicsContext
      *            The {@link Graphics2D} Graphics Context for vectorizing the
@@ -186,83 +182,25 @@ public abstract class DataViewXComponent extends XComponent {
      * @param rowsToExclude
      *            A {@link HashSet} of the rows to exclude from vectorization;
      *            not required to be contiguous
+     *
+     * @version 1.0
      */
     public final void vectorize( final Graphics2D graphicsContext,
                                  final int offsetX,
                                  final int offsetY,
                                  final HashSet< Integer > rowsToExclude ) {
-        final int rowCount = tableModel.getRowCount();
-        final int columnCount = tableModel.getColumnCount();
-        int rowX = offsetX;
-        for ( int i = 0; i < columnCount; i++ ) {
-            final TableColumn column = table.getColumnModel().getColumn( i );
-            int rowY = offsetY;
-            for ( int j = 0; j < rowCount; j++ ) {
-                final Object cellData = table.getValueAt( j, i );
-                final TableCellRenderer cellRenderer = table.getCellRenderer( j, i );
-                final String cellString = ( cellData instanceof String )
-                    ? ( String ) cellData
-                    : ( cellData instanceof StringBuffer )
-                        ? cellData.toString()
-                        : ( cellData instanceof StringBuilder ) ? cellData.toString() : null;
+        final Color backgroundColor = getBackground();
 
-                // Make sure the current table row can be rendered and isn't
-                // marked for exclusion.
-                if ( ( cellString != null ) && !rowsToExclude.contains( Integer.valueOf( j ) ) ) {
-                    final Component cellComponent = cellRenderer
-                            .getTableCellRendererComponent( table, cellString, false, false, j, i );
-                    final Font cellFont = cellComponent.getFont();
-                    graphicsContext.setFont( cellFont );
-                    final JLabel cellLabel = ( JLabel ) cellComponent;
-                    final int cellAlignment = cellLabel.getHorizontalAlignment();
-                    final FontMetrics cellFontMetrics = cellComponent.getFontMetrics( cellFont );
-                    final int cellDataWidth = cellFontMetrics.stringWidth( cellString );
-                    int rowXAligned = rowX;
-
-                    switch ( cellAlignment ) {
-                    case SwingConstants.LEFT:
-                        // :NOTE: Nothing to do here, as left-justification is
-                        // the default alignment.
-                        break;
-                    case SwingConstants.CENTER:
-                        rowXAligned = rowX + ( int ) Math
-                                .round( 0.5d * ( column.getWidth() - cellDataWidth ) );
-                        break;
-                    case SwingConstants.RIGHT:
-                        rowXAligned = ( rowX + column.getWidth() ) - cellDataWidth;
-                        break;
-                    case SwingConstants.LEADING:
-                        // :TODO: Figure out what (if anything) to do for this
-                        // case.
-                        break;
-                    case SwingConstants.TRAILING:
-                        // :TODO: Figure out what (if anything) to do for this
-                        // case.
-                        break;
-                    default:
-                        break;
-                    }
-
-                    // JFreePDF writes white text even against a white
-                    // background, unless we reset the foreground for the
-                    // current background. Additionally, JFreeSVG needs the
-                    // table background to be used as the basis vs. the Graphics
-                    // Context's current background. Fortunately, EpsToolkit
-                    // works properly with or without any of these edits.
-                    //
-                    // This should reverified now that the Converter Toolkit has
-                    // switched from OrsonPDF to JFreePDF.
-                    final Color oldColor = graphicsContext.getColor();
-                    final Color newColor = ColorUtilities
-                            .getForegroundFromBackground( getBackground() );
-                    graphicsContext.setColor( newColor );
-                    graphicsContext.drawString( cellString, rowXAligned, rowY );
-                    graphicsContext.setColor( oldColor );
-                }
-                rowY += table.getRowHeight() + table.getRowMargin();
-            }
-            rowX += column.getWidth();
-        }
+        // Vectorize the full table, but skip the table header in this context.
+        TableUtilities.vectorizeTable( graphicsContext,
+                                       offsetX,
+                                       offsetY,
+                                       table,
+                                       false,
+                                       null,
+                                       tableModel,
+                                       rowsToExclude,
+                                       backgroundColor );
     }
 
     ////////////////////// XComponent method overrides ///////////////////////
