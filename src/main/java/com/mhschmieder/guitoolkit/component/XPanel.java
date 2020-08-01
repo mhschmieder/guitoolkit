@@ -275,6 +275,36 @@ public class XPanel extends JPanel
         regenerateOffScreenImage = true;
     }
 
+    ////////////////////// Model/View syncing methods ////////////////////////
+
+    /**
+     * Returns the status of the view-to-model syncing ({@code true} if the data
+     * changed) after performing it hierarchically on the full panel layout.
+     * <p>
+     * As not all derived classes have data to sync, declaring this as abstract
+     * is the wrong approach, so we provide a default implementation that says
+     * no data changed.
+     *
+     * @return {@code true} if the model changed after syncing it from the view
+     *
+     * @since 1.0
+     */
+    @SuppressWarnings("static-method")
+    public boolean syncModelToView() {
+        return false;
+    }
+
+    /**
+     * Syncs the view to the data model hierarchically on the full panel layout.
+     * <p>
+     * As not all derived classes have data to sync, declaring this as abstract
+     * is the wrong approach, so we provide a default implementation that is a
+     * no-op.
+     *
+     * @since 1.0
+     */
+    public void syncViewToModel() {}
+
     ////////////// RenderingHintSource implementation methods ////////////////
 
     /**

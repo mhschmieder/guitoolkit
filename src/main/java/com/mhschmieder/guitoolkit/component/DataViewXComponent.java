@@ -43,6 +43,7 @@ import javax.swing.table.TableModel;
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 import com.mhschmieder.guitoolkit.component.table.DataViewCellRenderer;
 import com.mhschmieder.guitoolkit.component.table.DataViewTableModel;
+import com.mhschmieder.guitoolkit.component.table.TableVectorizationUtilities;
 
 /**
  * {@code DataViewXComponent} is an abstract base class that serves as a
@@ -69,11 +70,6 @@ public abstract class DataViewXComponent extends XComponent {
     protected JTable                   table;
 
     /**
-     * The Table Model that defines the data type for each column in the Table.
-     */
-    private TableModel                 tableModel;
-
-    /**
      * The custom cell renderer for read-only table data.
      */
     private final DataViewCellRenderer dataViewCellRenderer;
@@ -92,7 +88,8 @@ public abstract class DataViewXComponent extends XComponent {
 
         dataViewCellRenderer = new DataViewCellRenderer();
 
-        // :TODO: Switch to lazy initialization, like MsliFrame.
+        // Avoid constructor failure by wrapping the layout initialization in an
+        // exception handler that logs the exception and then returns an object.
         try {
             initComponent();
         }
@@ -143,7 +140,7 @@ public abstract class DataViewXComponent extends XComponent {
                                     final int horizontalAlignment,
                                     final boolean isFirstRowHeader ) {
         // Set the custom table model for more control over the display of data.
-        tableModel = new DataViewTableModel( data, columnNames, false );
+        final TableModel tableModel = new DataViewTableModel( data, columnNames, false );
 
         // Create the table from the custom table model.
         //
@@ -192,15 +189,13 @@ public abstract class DataViewXComponent extends XComponent {
         final Color backgroundColor = getBackground();
 
         // Vectorize the full table, but skip the table header in this context.
-        TableUtilities.vectorizeTable( graphicsContext,
-                                       offsetX,
-                                       offsetY,
-                                       table,
-                                       false,
-                                       null,
-                                       tableModel,
-                                       rowsToExclude,
-                                       backgroundColor );
+        TableVectorizationUtilities.vectorizeTable( graphicsContext,
+                                                    offsetX,
+                                                    offsetY,
+                                                    table,
+                                                    false,
+                                                    rowsToExclude,
+                                                    backgroundColor );
     }
 
     ////////////////////// XComponent method overrides ///////////////////////

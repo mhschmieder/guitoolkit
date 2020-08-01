@@ -29,7 +29,7 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.guitoolkit.component;
+package com.mhschmieder.guitoolkit.component.table;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -49,22 +49,17 @@ import javax.swing.table.TableModel;
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 /**
- * {@code TableUtilities} is a utility class for Swing based table methods.
+ * {@code TableVectorizationUtilities} is a utility class for Swing based table
+ * methods related to vectorization for vector graphics output formats.
  * <p>
- * At the moment, this just includes vectorization methods, which are here in
- * order to avoid copy/paste code in parallel implementation hierarchies for
- * containers that include tables.
+ * These utilities help to avoid copy/paste code in parallel implementation
+ * hierarchies for containers that include tables.
  *
  * @version 1.0
  *
  * @author Mark Schmieder
  */
-public final class TableUtilities {
-
-    /**
-     * The default constructor is disabled, as this is a static utilities class.
-     */
-    private TableUtilities() {}
+public final class TableVectorizationUtilities {
 
     //////////////////////// Vectorization methods ///////////////////////////
 
@@ -84,10 +79,6 @@ public final class TableUtilities {
      *            The Table that hosts the data
      * @param tableHeaderIsInUse
      *            {@code true} if the Table Header is in use
-     * @param tableHeader
-     *            The Table Header; {@code null} is allowed if not in use
-     * @param tableModel
-     *            The Table Model for this Table
      * @param rowsToExclude
      *            A {@link HashSet} of the rows to exclude from vectorization;
      *            not required to be contiguous
@@ -103,10 +94,9 @@ public final class TableUtilities {
                                        final int offsetY,
                                        final JTable table,
                                        final boolean tableHeaderIsInUse,
-                                       final JTableHeader tableHeader,
-                                       final TableModel tableModel,
                                        final HashSet< Integer > rowsToExclude,
                                        final Color backgroundColor ) {
+        final TableModel tableModel = table.getModel();
         final int columnCount = tableModel.getColumnCount();
         final int rowCount = tableModel.getRowCount();
 
@@ -120,11 +110,10 @@ public final class TableUtilities {
 
             int rowY = offsetY;
 
-            // Vectorize the table header, when present.
+            // Vectorize the table header, when present and in use.
             if ( tableHeaderIsInUse ) {
                 rowY = vectorizeTableHeader( graphicsContext,
                                              table,
-                                             tableHeader,
                                              column,
                                              columnIndex,
                                              rowX,
@@ -163,8 +152,6 @@ public final class TableUtilities {
      *            content of this table
      * @param table
      *            The Table that hosts the data
-     * @param tableHeader
-     *            The Table Header
      * @param column
      *            The current Table Column to render
      * @param columnIndex
@@ -190,7 +177,6 @@ public final class TableUtilities {
      */
     public static int vectorizeTableHeader( final Graphics2D graphicsContext,
                                             final JTable table,
-                                            final JTableHeader tableHeader,
                                             final TableColumn column,
                                             final int columnIndex,
                                             final int rowX,
@@ -199,7 +185,10 @@ public final class TableUtilities {
                                             final int rowHeight,
                                             final int rowMargin,
                                             final Color backgroundColor ) {
-        int rowYAdjusted = rowY;
+        final JTableHeader tableHeader = table.getTableHeader();
+        if ( tableHeader == null ) {
+            return rowY;
+        }
 
         final Object headerData = column.getHeaderValue();
         TableCellRenderer headerRenderer = column.getHeaderRenderer();
@@ -218,7 +207,7 @@ public final class TableUtilities {
                             columnWidth,
                             backgroundColor );
 
-        rowYAdjusted += rowHeight + rowMargin;
+        final int rowYAdjusted = rowY + rowHeight + rowMargin;
 
         return rowYAdjusted;
     }
@@ -370,10 +359,10 @@ public final class TableUtilities {
             // alignment.
             break;
         case SwingConstants.CENTER:
-            rowXAligned = rowX + ( int ) Math.round( 0.5d * ( columnWidth - cellDataWidth ) );
+            rowXAligned += ( int ) Math.round( 0.5d * ( columnWidth - cellDataWidth ) );
             break;
         case SwingConstants.RIGHT:
-            rowXAligned = ( rowX + columnWidth ) - cellDataWidth;
+            rowXAligned += columnWidth - cellDataWidth;
             break;
         case SwingConstants.LEADING:
             // Figure out what (if anything) to do for this case.
