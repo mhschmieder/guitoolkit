@@ -40,7 +40,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 /**
- * {@code NumericTextFieldCellRenderer} is a further specialization of
+ * {@code NumberCellRenderer} is a further specialization of
  * {@link TextFieldCellRenderer} to deal with the specifics of numeric text
  * strings. This includes model/view syncing issues with the rendering of
  * positive numbers that may have been typed with the plus sign by the user.
@@ -49,7 +49,7 @@ import javax.swing.SwingConstants;
  *
  * @author Mark Schmieder
  */
-public class NumericTextFieldCellRenderer extends TextFieldCellRenderer {
+public class NumberCellRenderer extends TextFieldCellRenderer {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
@@ -134,10 +134,10 @@ public class NumericTextFieldCellRenderer extends TextFieldCellRenderer {
      *
      * @version 1.0
      */
-    public NumericTextFieldCellRenderer( final boolean setAsRowHeader,
-                                         final float fontSize,
-                                         final String units,
-                                         final boolean stripPositiveSign ) {
+    public NumberCellRenderer( final boolean setAsRowHeader,
+                               final float fontSize,
+                               final String units,
+                               final boolean stripPositiveSign ) {
         // Always call the superclass constructor first!
         this( setAsRowHeader,
               fontSize,
@@ -174,14 +174,14 @@ public class NumericTextFieldCellRenderer extends TextFieldCellRenderer {
      *
      * @version 1.0
      */
-    public NumericTextFieldCellRenderer( final boolean isRowHeader,
-                                         final float fontSize,
-                                         final Color rowHeaderBackgroundColor,
-                                         final Color rowHeaderForegroundColor,
-                                         final Color cellBackgroundColor,
-                                         final Color cellForegroundColor,
-                                         final String units,
-                                         final boolean stripPositiveSign ) {
+    public NumberCellRenderer( final boolean isRowHeader,
+                               final float fontSize,
+                               final Color rowHeaderBackgroundColor,
+                               final Color rowHeaderForegroundColor,
+                               final Color cellBackgroundColor,
+                               final Color cellForegroundColor,
+                               final String units,
+                               final boolean stripPositiveSign ) {
         // Always call the superclass constructor first!
         super( isRowHeader,
                CELL_ALIGNMENT,

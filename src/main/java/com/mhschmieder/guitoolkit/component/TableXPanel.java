@@ -100,7 +100,7 @@ public abstract class TableXPanel extends XPanel {
     /**
      * The Table that hosts the data.
      */
-    public XTable             table;
+    protected XTable          table;
 
     /**
      * Flag for whether a Table Header is in use; {@code true} if so.

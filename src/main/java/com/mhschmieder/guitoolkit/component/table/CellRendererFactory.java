@@ -93,4 +93,35 @@ public final class CellRendererFactory {
                                           TableConstants.DEFAULT_CELL_FOREGROUND_COLOR );
     }
 
+    /**
+     * Returns a {@link NumberCellRenderer} with appropriate settings for
+     * editable angles that include Angle Units in their formatting.
+     * <p>
+     * Once the math library and related commons libraries are published, the
+     * Angle Unit will be queried from the associated enumeration instead. For
+     * now though, we at least have to specify it using UTF-8 vs. typing the
+     * symbol into the code editor, to avoid problems with off-line editing.
+     *
+     * @param setAsRowHeader
+     *            {@code true} if this cell should be used as a row header
+     * @param fontSize
+     *            The preferred size of the fonts to be used by the table cells
+     * @return A {@link NumberCellRenderer} with appropriate settings for
+     *         editable angles
+     *
+     * @version 1.0
+     */
+    @SuppressWarnings("nls")
+    public static DefaultTableCellRenderer makeAngleCellRenderer( final boolean setAsRowHeader,
+                                                                  final float fontSize ) {
+        return new NumberCellRenderer( setAsRowHeader,
+                                       fontSize,
+                                       TableConstants.DEFAULT_HEADER_BACKGROUND_COLOR,
+                                       TableConstants.DEFAULT_HEADER_FOREGROUND_COLOR,
+                                       TableConstants.DEFAULT_CELL_BACKGROUND_COLOR,
+                                       TableConstants.DEFAULT_CELL_FOREGROUND_COLOR,
+                                       "\u00B0",
+                                       false );
+    }
+
 }

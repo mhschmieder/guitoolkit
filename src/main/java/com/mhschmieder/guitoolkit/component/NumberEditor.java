@@ -38,7 +38,7 @@ import java.util.Locale;
 import javax.swing.JTextField;
 
 /**
- * {@code NumericTextField} is a specialization of {@link JTextField} that takes
+ * {@code NumberEditor} is a specialization of {@link JTextField} that takes
  * care of some initialization issues in that class as well as providing for
  * some number formating specifics.
  * <p>
@@ -52,7 +52,7 @@ import javax.swing.JTextField;
  *
  * @author Mark Schmieder
  */
-public class NumericTextField extends JTextField {
+public class NumberEditor extends JTextField {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
@@ -151,10 +151,10 @@ public class NumericTextField extends JTextField {
      *
      * @version 1.0
      */
-    public NumericTextField( final int minimumFractionDigitsFormat,
-                             final int maximumFractionDigitsFormat,
-                             final int minimumFractionDigitsParse,
-                             final int maximumFractionDigitsParse ) {
+    public NumberEditor( final int minimumFractionDigitsFormat,
+                         final int maximumFractionDigitsFormat,
+                         final int minimumFractionDigitsParse,
+                         final int maximumFractionDigitsParse ) {
         // Always call the superclass constructor first!
         super( DEFAULT_NUMBER_OF_COLUMNS );
 
@@ -320,7 +320,7 @@ public class NumericTextField extends JTextField {
      * This is a specialized function that must be invoked directly by the
      * client strictly in contexts where this is the desired behavior.
      * <p>
-     * As with {@code NumericTextFieldCellRenderer}, it might be better to set a
+     * As with {@code NumberCellRenderer}, it might be better to set a
      * flag for when to do this specialized parsing, and make that part of the
      * regular {@link #getValue} method.
      *
@@ -348,7 +348,7 @@ public class NumericTextField extends JTextField {
      * This is a specialized function that must be invoked directly by the
      * client strictly in contexts where this is the desired behavior.
      * <p>
-     * As with {@code NumericTextFieldCellRenderer}, it might be better to set a
+     * As with {@code NumberCellRenderer}, it might be better to set a
      * flag for when to do this specialized parsing, and make that part of the
      * regular {@link #getValue} method.
      *

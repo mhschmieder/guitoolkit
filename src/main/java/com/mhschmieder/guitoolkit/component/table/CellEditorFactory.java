@@ -33,7 +33,7 @@ package com.mhschmieder.guitoolkit.component.table;
 
 import javax.swing.DefaultCellEditor;
 
-import com.mhschmieder.guitoolkit.component.NumericTextField;
+import com.mhschmieder.guitoolkit.component.NumberEditor;
 
 /**
  * {@code CellEditorFactory} is a factory class for making customized Table
@@ -51,6 +51,15 @@ public final class CellEditorFactory {
      * The default constructor is disabled, as this is a static factory class.
      */
     private CellEditorFactory() {}
+
+    /**
+     * Returns a {@link BlankingCellEditor} that is stylized for blanking.
+     *
+     * @return A {@link BlankingCellEditor} that is stylized for blanking
+     */
+    public static DefaultCellEditor makeBlankingCellEditor() {
+        return new BlankingCellEditor( false );
+    }
 
     /**
      * Returns a {@link TextFieldCellEditor} that is stylized either for
@@ -95,17 +104,8 @@ public final class CellEditorFactory {
     }
 
     /**
-     * Returns a {@link BlankingCellEditor} that is stylized for blanking.
-     *
-     * @return A {@link BlankingCellEditor} that is stylized for blanking
-     */
-    public static DefaultCellEditor makeBlankingCellEditor() {
-        return new BlankingCellEditor( false );
-    }
-
-    /**
-     * Returns a {@link TextFieldCellEditor} that uses a
-     * {@link NumericTextField} for the cell editor and is visible by default.
+     * Returns a {@link TextFieldCellEditor} that uses a {@link NumberEditor}
+     * for the cell editing and is visible by default.
      *
      * @param minimumFractionDigitsFormat
      *            The minimum number of fraction digits to be shown
@@ -120,21 +120,21 @@ public final class CellEditorFactory {
      * @param isEnabled
      *            {@code true} if this cell should be enabled by default
      * @return A {@link TextFieldCellEditor} that uses a
-     *         {@link NumericTextField} for the cell editor
+     *         {@link NumberEditor} for the cell editing
      */
-    public static TextFieldCellEditor makeNumericCellEditor( final int minimumFractionDigitsFormat,
-                                                             final int maximumFractionDigitsFormat,
-                                                             final int minimumFractionDigitsParse,
-                                                             final int maximumFractionDigitsParse,
-                                                             final boolean isRowHeader,
-                                                             final boolean isEnabled ) {
-        final NumericTextField textField = new NumericTextField( minimumFractionDigitsFormat,
-                                                                 maximumFractionDigitsFormat,
-                                                                 minimumFractionDigitsParse,
-                                                                 maximumFractionDigitsParse );
+    public static TextFieldCellEditor makeNumberCellEditor( final int minimumFractionDigitsFormat,
+                                                            final int maximumFractionDigitsFormat,
+                                                            final int minimumFractionDigitsParse,
+                                                            final int maximumFractionDigitsParse,
+                                                            final boolean isRowHeader,
+                                                            final boolean isEnabled ) {
+        final NumberEditor textField = new NumberEditor( minimumFractionDigitsFormat,
+                                                         maximumFractionDigitsFormat,
+                                                         minimumFractionDigitsParse,
+                                                         maximumFractionDigitsParse );
 
-        // Return a Text Field Cell Editor that uses a Numeric Text Field
-        // specialization for the cell editor and is visible by default.
+        // Return a Text Field Cell Editor instance that uses a Number Editor
+        // for the cell editing and is visible by default.
         return new TextFieldCellEditor( textField, isRowHeader, isEnabled, true );
     }
 
