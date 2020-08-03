@@ -427,6 +427,21 @@ public abstract class TableXPanel extends XPanel {
      */
     protected abstract void initCellEditorsAndRenderers();
 
+    ////////////////// Accessor methods for private data /////////////////////
+
+    /**
+     * Returns {@code true} if auto-selection is enabled when nothing is
+     * manually or programmatically selected.
+     *
+     * @return {@code true} if auto-selection is enabled when nothing is
+     *         manually or programmatically selected
+     *
+     * @since 1.0
+     */
+    public final boolean isAutoSelectionEnabled() {
+        return autoSelectionEnabled;
+    }
+
     ////////////////////// Model/View syncing methods ////////////////////////
 
     /**
@@ -554,7 +569,7 @@ public abstract class TableXPanel extends XPanel {
     }
 
     /**
-     * Clears any active selection on the table.
+     * Clears any active selection in the table.
      *
      * @since 1.0
      */
@@ -587,6 +602,50 @@ public abstract class TableXPanel extends XPanel {
     }
 
     /**
+     * Returns the number of selected rows, or zero if none selected.
+     *
+     * @return The number of selected rows, or zero if none selected
+     */
+    public final int getNumberOfSelectedRows() {
+        final Integer[] selectedRowIndices = getSelectedRows();
+        final int numberOfSelectedRows = ( selectedRowIndices != null )
+            ? selectedRowIndices.length
+            : 0;
+
+        return numberOfSelectedRows;
+    }
+
+    /**
+     * Returns the list of currently selected table row indices, in reverse
+     * order so that deletions and other actions can be performed sequentially
+     * without any of the indices "going bad" mid-stream.
+     *
+     * @return A list of the selected table row indices, or {@code null} if none
+     *         selected
+     *
+     * @since 1.0
+     */
+    public final Integer[] getSelectedRows() {
+        final int[] selectedTableRows = table.getSelectedRows();
+        final int selectionLength = selectedTableRows.length;
+        if ( selectionLength <= 0 ) {
+            return null;
+        }
+
+        // In order to guarantee that all indices are valid at the time they are
+        // applied without having to be altered to accommodate a dynamically
+        // changing table, we apply Java's sort algorithms to rearrange the list
+        // of indices in reverse numerical order.
+        final Integer[] selectedRowIndices = new Integer[ selectionLength ];
+        for ( int rowIndex = 0; rowIndex < selectionLength; rowIndex++ ) {
+            selectedRowIndices[ rowIndex ] = Integer.valueOf( selectedTableRows[ rowIndex ] );
+        }
+        Arrays.sort( selectedRowIndices, Collections.reverseOrder() );
+
+        return selectedRowIndices;
+    }
+
+    /**
      * Returns the hierarchically-lower-most selected row, or the last row in
      * the table if none were selected.
      *
@@ -603,10 +662,10 @@ public abstract class TableXPanel extends XPanel {
         // overrides the initial default.
         int selectionIndex = minimumRowIndex - 1;
 
-        final Integer[] rowIndices = getSelectedRows();
-        if ( rowIndices != null ) {
-            final int maximumRowIndex = rowIndices.length - 1;
-            selectionIndex = rowIndices[ maximumRowIndex ].intValue();
+        final Integer[] selectedRowIndices = getSelectedRows();
+        if ( ( selectedRowIndices != null ) && ( selectedRowIndices.length > 0 ) ) {
+            final int maximumRowIndex = selectedRowIndices.length - 1;
+            selectionIndex = selectedRowIndices[ maximumRowIndex ].intValue();
         }
         else {
             // If no rows were selected, and auto-selection is enabled, correct
@@ -621,32 +680,6 @@ public abstract class TableXPanel extends XPanel {
     }
 
     /**
-     * Returns the list of currently selected table rows.
-     *
-     * @return A list of the selected table rows
-     *
-     * @since 1.0
-     */
-    public final Integer[] getSelectedRows() {
-        final int[] selectedTableRows = table.getSelectedRows();
-        final int selectionLength = selectedTableRows.length;
-        if ( selectionLength > 0 ) {
-            // In order to guarantee that all indices are valid at the time they
-            // are applied without having to be altered to accommodate a
-            // dynamically changing table, we apply Java's sort algorithms to
-            // rearrange the list of indices in reverse numerical order.
-            final Integer[] rowIndices = new Integer[ selectionLength ];
-            for ( int i = 0; i < selectionLength; i++ ) {
-                rowIndices[ i ] = Integer.valueOf( selectedTableRows[ i ] );
-            }
-            Arrays.sort( rowIndices, Collections.reverseOrder() );
-            return rowIndices;
-        }
-
-        return null;
-    }
-
-    /**
      * Auto-selects the default table row selection, which is the last row in
      * the table in this implementation.
      *
@@ -655,54 +688,63 @@ public abstract class TableXPanel extends XPanel {
     public final void setDefaultSelection() {
         // Trigger the default auto-selection by mimicking an empty or invalid
         // selection.
-        setSelectedRow( -1 );
+        selectRow( -1 );
+    }
+
+    /**
+     * Selects the specified row in the table.
+     * <p>
+     * This method clears any active selections before making a new row
+     * selection, so that only one row is selected at a time, avoiding confusion
+     * over focus and selection status.
+     * <p>
+     * This is safer than performing two separate actions, and also more
+     * performant, as it avoids the interim state where the selected row index
+     * is deliberately set to the invalid selection indicator of "-1".
+     *
+     * @param rowIndex
+     *            The index of the table row to select
+     *
+     * @since 1.0
+     */
+    public void selectRow( final int rowIndex ) {
+        // Avoid any unnecessary table events, to minimize recursion.
+        final int currentSelectedRowIndex = table.getSelectedRow();
+        if ( rowIndex == currentSelectedRowIndex ) {
+            return;
+        }
+
+        // Clear any active row selections, in case the table is now empty.
+        clearSelection();
+
+        // Select the requested row, or auto-select the last row in the table if
+        // the requested row is invalid. If the table is now empty, select
+        // nothing as otherwise an index out of range exception is thrown.
+        final int lastRowIndex = getLastRowIndex();
+        final int adjustedRowIndex = ( ( rowIndex < 0 ) || ( rowIndex > lastRowIndex ) )
+            ? lastRowIndex
+            : Math.min( rowIndex, lastRowIndex );
+        if ( adjustedRowIndex >= 0 ) {
+            table.setRowSelectionInterval( adjustedRowIndex, adjustedRowIndex );
+        }
     }
 
     /**
      * Selects the specified cell in the table.
      *
-     * @param selectedRowIndex
-     *            The row index for the selected cell
-     * @param selectedColumnIndex
-     *            The column index for the selected cell
+     * @param rowIndex
+     *            The row index of the table cell to select
+     * @param columnIndex
+     *            The column index of the table cell to select
      *
      * @since 1.0
      */
-    public final void setSelectedCell( final int selectedRowIndex, final int selectedColumnIndex ) {
+    public final void selectCell( final int rowIndex, final int columnIndex ) {
         // First select the row. This is necessary even if redundant.
-        table.setRowSelectionInterval( selectedRowIndex, selectedRowIndex );
+        table.setRowSelectionInterval( rowIndex, rowIndex );
 
         // Now select the column. This should retain the selected row.
-        table.setColumnSelectionInterval( selectedColumnIndex, selectedColumnIndex );
-    }
-
-    /**
-     * Selects the specified row in the table.
-     *
-     * @param selectedRowIndex
-     *            The index of the table row to select
-     *
-     * @since 1.0
-     */
-    public void setSelectedRow( final int selectedRowIndex ) {
-        // Avoid any unnecessary table events, to minimize recursion.
-        final int currentSelectedRowIndex = table.getSelectedRow();
-        if ( selectedRowIndex != currentSelectedRowIndex ) {
-            // Clear any active row selections, in case the table is now empty.
-            clearSelection();
-
-            // Select the requested row, or auto-select the last row in the
-            // table if the requested row is invalid. If the table is now empty,
-            // select nothing as otherwise an index out of range exception will
-            // be thrown.
-            final int lastRowIndex = getLastRowIndex();
-            final int autoselectRowIndex = ( selectedRowIndex < 0 )
-                ? lastRowIndex
-                : Math.min( selectedRowIndex, lastRowIndex );
-            if ( autoselectRowIndex >= 0 ) {
-                table.setRowSelectionInterval( autoselectRowIndex, autoselectRowIndex );
-            }
-        }
+        table.setColumnSelectionInterval( columnIndex, columnIndex );
     }
 
     //////////////////////// XPanel method overrides /////////////////////////

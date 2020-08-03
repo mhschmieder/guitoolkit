@@ -36,7 +36,7 @@ import java.awt.EventQueue;
 /**
  * {@code DynamicTableXPanel} is a further abstraction of {@link TableXPanel}
  * that sets up the functionality that is likely to be shared by all multi-row
- * tables that support adding and deleting rows.
+ * tables that support dynamically adding and deleting rows after creation.
  *
  * @version 1.0
  *
@@ -74,7 +74,7 @@ public abstract class DynamicTableXPanel extends TableXPanel {
         super( firstColumn, lastColumn, autoSelectionIsEnabled );
     }
 
-    /////////////////////// Table management methods /////////////////////////
+    ////////////////////// Table manipulation methods ////////////////////////
 
     /**
      * Returns {@code true} if a row can be inserted at the specified index.
@@ -82,9 +82,9 @@ public abstract class DynamicTableXPanel extends TableXPanel {
      * @param insertIndex
      *            The selected index for inserting a new row
      * @param minimumInsertIndex
-     *            The minimum index for inserting a new row
+     *            The minimum allowed index for inserting a new row
      * @param maximumInsertIndex
-     *            The maximum index for inserting a new row
+     *            The maximum allowed index for inserting a new row
      * @param maximumLastRowIndex
      *            The maximum index that is ever allowed for this table
      * @return {@code true} if a row can be inserted at the specified index
@@ -105,14 +105,74 @@ public abstract class DynamicTableXPanel extends TableXPanel {
     }
 
     /**
+     * Returns {@code true} if row deletion is legal, regardless of context.
+     *
+     * @return {@code true} if row deletion is legal, regardless of context
+     *
+     * @since 1.0
+     */
+    public boolean canDeleteTableRows() {
+        // Determine whether the table is populated or empty, whether any
+        // delete-enabled rows are selected, and any additional criteria
+        // supplied by overridden methods. If no rows are selected, we seed
+        // the logic auto-selected to the last row.
+        //
+        // Maybe provide or override the preferred auto-select row index?
+        boolean canDeleteRows = true;
+        final Integer[] selectedRowIndices = getSelectedRows();
+        if ( ( selectedRowIndices != null ) && ( selectedRowIndices.length > 0 ) ) {
+            for ( final Integer selectedRowIndex : selectedRowIndices ) {
+                if ( !canDeleteTableRowAt( selectedRowIndex.intValue() ) ) {
+                    canDeleteRows = false;
+                    break;
+                }
+            }
+        }
+        else {
+            // If no rows were selected, and auto-selection is enabled, correct
+            // the default selection to be the last valid row index.
+            if ( isAutoSelectionEnabled() ) {
+                final int maximumRowIndex = getLastRowIndex();
+                if ( !canDeleteTableRowAt( maximumRowIndex ) ) {
+                    canDeleteRows = false;
+                }
+            }
+            else {
+                canDeleteRows = false;
+            }
+        }
+
+        return canDeleteRows;
+    }
+
+    /**
+     * Returns {@code true} if a row can be deleted at the specified index
+     *
+     * @param deleteIndex
+     *            The selected index for deleting an existing row
+     * @return {@code true} if a row can be deleted at the specified index
+     *
+     * @since 1.0
+     */
+    public boolean canDeleteTableRowAt( final int deleteIndex ) {
+        final int minimumDeleteIndex = 0;
+        final int maximumDeleteIndex = getLastRowIndex();
+        final int minimumLastRowIndex = -1;
+        return canDeleteTableRowAt( deleteIndex,
+                                    minimumDeleteIndex,
+                                    maximumDeleteIndex,
+                                    minimumLastRowIndex );
+    }
+
+    /**
      * Returns {@code true} if a row can be deleted at the specified index
      *
      * @param deleteIndex
      *            The selected index for deleting an existing row
      * @param minimumDeleteIndex
-     *            The minimum index for deleting an existing row
+     *            The minimum allowed index for deleting an existing row
      * @param maximumDeleteIndex
-     *            The maximum index for deleting an existing row
+     *            The maximum allowed index for deleting an existing row
      * @param minimumLastRowIndex
      *            The minimum index that is ever allowed for this table
      * @return {@code true} if a row can be deleted at the specified index
@@ -139,8 +199,49 @@ public abstract class DynamicTableXPanel extends TableXPanel {
      * This method finds the lower-most row selected (or the last row if none
      * were selected), and inserts an initially similar row right after it.
      *
+     * @return The row index for the newly inserted row (if valid)
+     *
+     * @since 1.0
+     */
+    public int insertTableRow() {
+        // Clone the selected or defaulted row when adding a new one.
+        final int minimumInsertIndex = 0;
+        final int referenceIndex = insertTableRow( minimumInsertIndex );
+
+        return referenceIndex;
+    }
+
+    /**
+     * Returns the row index for the newly inserted row (if valid), added to the
+     * table at the selected row index.
+     * <p>
+     * This method finds the lower-most row selected (or the last row if none
+     * were selected), and inserts an initially similar row right after it.
+     *
      * @param minimumInsertIndex
-     *            The minimum index for inserting a new row
+     *            The minimum allowed index for inserting a new row
+     * @return The row index for the newly inserted row (if valid)
+     *
+     * @since 1.0
+     */
+    public int insertTableRow( final int minimumInsertIndex ) {
+        final int maximumRowCountIndex = Integer.MAX_VALUE;
+
+        // Insert a new table row set to the currently selected row.
+        final int referenceIndex = insertTableRow( minimumInsertIndex, maximumRowCountIndex );
+
+        return referenceIndex;
+    }
+
+    /**
+     * Returns the row index for the newly inserted row (if valid), added to the
+     * table at the selected row index.
+     * <p>
+     * This method finds the lower-most row selected (or the last row if none
+     * were selected), and inserts an initially similar row right after it.
+     *
+     * @param minimumInsertIndex
+     *            The minimum allowed index for inserting a new row
      * @param maximumLastRowIndex
      *            The maximum index that is ever allowed for this table
      * @return The row index for the newly inserted row (if valid)
@@ -184,9 +285,9 @@ public abstract class DynamicTableXPanel extends TableXPanel {
      * @param insertIndex
      *            The selected index for inserting a new row
      * @param minimumInsertIndex
-     *            The minimum index for inserting a new row
+     *            The minimum allowed index for inserting a new row
      * @param maximumInsertIndex
-     *            The maximum index for inserting a new row
+     *            The maximum allowed index for inserting a new row
      * @param maximumLastRowIndex
      *            The maximum index that is ever allowed for this table
      * @return The row index for the newly inserted row (if valid)
@@ -205,8 +306,34 @@ public abstract class DynamicTableXPanel extends TableXPanel {
      * This method finds the lower-most row selected (or the last row if none
      * were selected), and inserts an initially similar row right after it.
      *
+     * @return The row index for the final deleted row (if valid)
+     *
+     * @since 1.0
+     */
+    public int deleteTableRows() {
+        // Default to no restrictions on the row range to be deleted.
+        //
+        // The minimum last row count index of -1 is required for tables that
+        // can be empty (whether initially or after editing), as an index of
+        // zero corresponds to a minimum row count of one.
+        final int minimumDeleteIndex = 0;
+        final int minimumLastRowIndex = -1;
+
+        // Delete the selected table row(s).
+        final int referenceIndex = deleteTableRows( minimumDeleteIndex, minimumLastRowIndex );
+
+        return referenceIndex;
+    }
+
+    /**
+     * Returns the row index for the final deleted row (if valid), or the last
+     * row if none were selected.
+     * <p>
+     * This method finds the lower-most row selected (or the last row if none
+     * were selected), and inserts an initially similar row right after it.
+     *
      * @param minimumDeleteIndex
-     *            The minimum index for deleting an existing row
+     *            The minimum allowed index for deleting an existing row
      * @param minimumLastRowIndex
      *            The minimum index that is ever allowed for this table
      * @return The row index for the final deleted row (if valid)
@@ -217,22 +344,22 @@ public abstract class DynamicTableXPanel extends TableXPanel {
                                          final int minimumLastRowIndex ) {
         // Delete all of the selected table row(s), except the minimum row.
         int referenceIndex = -1;
-        final Integer[] rowIndices = getSelectedRows();
-        if ( rowIndices != null ) {
+        final Integer[] selectedRowIndices = getSelectedRows();
+        if ( ( selectedRowIndices != null ) && ( selectedRowIndices.length > 0 ) ) {
             int correctedIndex = -1;
-            final int selectionLength = rowIndices.length;
-            for ( int i = 0; i < selectionLength; i++ ) {
-                final int deleteIndex = rowIndices[ i ].intValue();
+            for ( final Integer deleteIndex : selectedRowIndices ) {
+                // As the table changes size inside this loop, we have to
+                // refresh the last row index on each iteration.
                 final int maximumDeleteIndex = getLastRowIndex();
-                correctedIndex = deleteTableRowAt( deleteIndex,
+                correctedIndex = deleteTableRowAt( deleteIndex.intValue(),
                                                    minimumDeleteIndex,
                                                    maximumDeleteIndex,
                                                    minimumLastRowIndex );
 
-                // Make sure we only use the first corrected index, as we handle
-                // delete in reverse order and want to use the last selected row
-                // as the reference row.
-                if ( i == 0 ) {
+                // Make sure we only use the first valid corrected index, as we
+                // handle delete in reverse order and want to use the last
+                // selected row as the reference row.
+                if ( referenceIndex < 0 ) {
                     referenceIndex = correctedIndex;
                 }
             }
@@ -240,6 +367,7 @@ public abstract class DynamicTableXPanel extends TableXPanel {
             // Now adjust the last selected row index for the number of rows
             // deleted (minus one, as we always try to select the row directly
             // after the one deleted).
+            final int selectionLength = selectedRowIndices.length;
             referenceIndex -= ( selectionLength - 1 );
         }
         else {
@@ -251,6 +379,10 @@ public abstract class DynamicTableXPanel extends TableXPanel {
                                                maximumDeleteIndex,
                                                minimumLastRowIndex );
         }
+
+        // Select the reference row from the Delete action if it is valid, or
+        // the last row in the table otherwise.
+        selectRow( referenceIndex );
 
         return referenceIndex;
     }
@@ -265,9 +397,9 @@ public abstract class DynamicTableXPanel extends TableXPanel {
      * @param deleteIndex
      *            The selected index for deleting an existing row
      * @param minimumDeleteIndex
-     *            The minimum index for deleting an existing row
+     *            The minimum allowed index for deleting an existing row
      * @param maximumDeleteIndex
-     *            The maximum index for deleting an existing row
+     *            The maximum allowed index for deleting an existing row
      * @param minimumLastRowIndex
      *            The minimum index that is ever allowed for this table
      * @return The row index for the deleted row (if the row was deleted)
