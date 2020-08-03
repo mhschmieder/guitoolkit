@@ -33,6 +33,8 @@ package com.mhschmieder.guitoolkit.component.table;
 
 import java.awt.Color;
 
+import com.mhschmieder.graphicstoolkit.color.ColorConstants;
+
 /**
  * {@code TableConstants} is a container for constants related to tables,
  * whether mandated as invariant or simply provided as useful or common
@@ -61,15 +63,27 @@ public final class TableConstants {
     @SuppressWarnings("nls") public static final String DEFAULT_BLANKING_TEXT             = "-";
 
     /**
+     * The default US English text to use to indicate the Visible status for a
+     * Toggle Button that represents Visible vs. Hidden status.
+     */
+    @SuppressWarnings("nls") public static final String DEFAULT_VISIBLE_TEXT              =
+                                                                             "Visible";
+
+    /**
+     * The default US English text to use to indicate the Hidden status for a
+     * Toggle Button that represents Visible vs. Hidden status.
+     */
+    @SuppressWarnings("nls") public static final String DEFAULT_HIDDEN_TEXT               =
+                                                                            "Hidden";
+
+    /**
      * The default {@link Color} to use for row header cell background.
      * <p>
      * This is a nice dark royal blue that used to be common for table headers
      * in many applications and reports. The Swing default is otherwise gray.
      */
     public static final Color                           DEFAULT_HEADER_BACKGROUND_COLOR   =
-                                                                                        new Color( 62,
-                                                                                                   86,
-                                                                                                   151 );
+                                                                                        ColorConstants.DARKROYALBLUE;
 
     /**
      * The default {@link Color} to use for row header cell foreground.
@@ -93,14 +107,40 @@ public final class TableConstants {
      * The default {@link Color} to use for blanking cell background.
      */
     public static final Color                           DEFAULT_BLANKING_BACKGROUND_COLOR =
-                                                                                          new Color( 202,
-                                                                                                     202,
-                                                                                                     70 );
+                                                                                          ColorConstants.LEMON;
 
     /**
      * The default {@link Color} to use for blanking cell foreground.
      */
     public static final Color                           DEFAULT_BLANKING_FOREGROUND_COLOR =
                                                                                           Color.BLACK;
+
+    /**
+     * The default {@link Color} to use for the background of a Toggle Button
+     * that represents Visible vs. Hidden status, when its status is Visible.
+     */
+    public static final Color                           DEFAULT_VISIBLE_BACKGROUND_COLOR  =
+                                                                                         ColorConstants.BRIGHTYELLOW;
+
+    /**
+     * The default {@link Color} to use for the foreground of a Toggle Button
+     * that represents Visible vs. Hidden status, when its status is Visible.
+     */
+    public static final Color                           DEFAULT_VISIBLE_FOREGROUND_COLOR  =
+                                                                                         Color.BLUE;
+
+    /**
+     * The default {@link Color} to use for the background of a Toggle Button
+     * that represents Visible vs. Hidden status, when its status is Hidden.
+     */
+    public static final Color                           DEFAULT_HIDDEN_BACKGROUND_COLOR   =
+                                                                                        Color.BLUE;
+
+    /**
+     * The default {@link Color} to use for the foreground of a Toggle Button
+     * that represents Visible vs. Hidden status, when its status is Hidden.
+     */
+    public static final Color                           DEFAULT_HIDDEN_FOREGROUND_COLOR   =
+                                                                                        ColorConstants.BRIGHTYELLOW;
 
 }

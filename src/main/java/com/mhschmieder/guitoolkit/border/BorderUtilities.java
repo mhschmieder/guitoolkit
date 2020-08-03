@@ -37,6 +37,8 @@ import javax.swing.BorderFactory;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import com.mhschmieder.graphicstoolkit.color.ColorConstants;
+
 /**
  * {@code BorderUtilities} is a utility class for working more effectively and
  * consistently with custom borders.
@@ -73,7 +75,7 @@ public final class BorderUtilities {
     public static TitledBorder makeTitledBorder( final String title ) {
         final EtchedBorder etchedBorder = new EtchedBorder( EtchedBorder.RAISED,
                                                             Color.WHITE,
-                                                            new Color( 142, 142, 142 ) );
+                                                            ColorConstants.GRAY55 );
         final TitledBorder titledBorder = BorderFactory.createTitledBorder( etchedBorder, title );
         return titledBorder;
     }

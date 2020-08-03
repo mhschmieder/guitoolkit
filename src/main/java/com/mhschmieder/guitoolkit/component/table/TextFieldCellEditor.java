@@ -31,12 +31,13 @@
  */
 package com.mhschmieder.guitoolkit.component.table;
 
-import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
+import com.mhschmieder.graphicstoolkit.color.ColorConstants;
 
 /**
  * {@code TextFieldCellEditor} is a specialization of {@link XCellEditor} to
@@ -116,7 +117,7 @@ public class TextFieldCellEditor extends XCellEditor {
         // System.out.println( border.toString() );
         // editorComponent.setBorder( BorderFactory.createEmptyBorder( 2, 2, 2,
         // 2 ) );
-        editorComponent.setBorder( new LineBorder( new Color( 0, 128, 128 ), 2, false ) );
+        editorComponent.setBorder( new LineBorder( ColorConstants.TEAL, 2, false ) );
 
         // Allow Text Fields to participate in focus (i.e. tab) traversal.
         editorComponent.setFocusable( true );

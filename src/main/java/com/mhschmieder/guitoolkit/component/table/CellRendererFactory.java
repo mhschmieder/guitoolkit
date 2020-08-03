@@ -124,4 +124,24 @@ public final class CellRendererFactory {
                                        false );
     }
 
+    /**
+     * Returns a {@link ToggleButtonCellRenderer} stylized for Visible vs.
+     * Hidden status, initially localized to the US English default labels.
+     *
+     * @param fontSize
+     *            The preferred size of the fonts to be used by the table cells
+     * @return A {@link ToggleButtonCellRenderer} stylized for Visible vs.
+     *         Hidden status
+     */
+    public static DefaultTableCellRenderer makeDisplayCellRenderer( final float fontSize ) {
+        return new ToggleButtonCellRenderer( false,
+                                             fontSize,
+                                             TableConstants.DEFAULT_VISIBLE_TEXT,
+                                             TableConstants.DEFAULT_HIDDEN_TEXT,
+                                             TableConstants.DEFAULT_VISIBLE_BACKGROUND_COLOR,
+                                             TableConstants.DEFAULT_HIDDEN_BACKGROUND_COLOR,
+                                             TableConstants.DEFAULT_VISIBLE_FOREGROUND_COLOR,
+                                             TableConstants.DEFAULT_HIDDEN_FOREGROUND_COLOR );
+    }
+
 }
