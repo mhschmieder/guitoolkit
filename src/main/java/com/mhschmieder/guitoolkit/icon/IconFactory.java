@@ -28,43 +28,25 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.guitoolkit;
+package com.mhschmieder.guitoolkit.icon;
 
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 
 /**
- * {@code GuiUtilities} is a utility class for Swing based GUI methods.
+ * {@code IconFactory} is a factory class for making Swing based icons.
  *
  * @version 1.0
  *
  * @author Mark Schmieder
  */
-public final class GuiUtilities {
+public final class IconFactory {
 
     /**
-     * This method serves merely as a sanity check that the Maven integration
-     * and builds work properly and also behave correctly inside Eclipse IDE. It
-     * will likely get removed once I gain more confidence that I have solved
-     * the well-known issues with Maven inside Eclipse as I move on to more
-     * complex projects with dependencies (this project is quite simple and has
-     * no dependencies at this time, until more functionality is added).
-     *
-     * @param args
-     *            The command-line arguments for executing this class as the
-     *            main entry point for an application
-     *
-     * @since 1.0
+     * The default constructor is disabled, as this is a static factory class.
      */
-    public static void main( final String[] args ) {
-        System.out.println( "Hello Maven from GuiToolkit!" ); //$NON-NLS-1$
-    }
-
-    /**
-     * The default constructor is disabled, as this is a static utilities class.
-     */
-    private GuiUtilities() {}
+    private IconFactory() {}
 
     /**
      * Returns an {@link ImageIcon} that contains the image specified by the
@@ -88,7 +70,7 @@ public final class GuiUtilities {
         ImageIcon imageIcon = null;
 
         // Demand-load the image resource to be immediately available.
-        final ClassLoader classLoader = GuiUtilities.class.getClassLoader();
+        final ClassLoader classLoader = IconUtilities.class.getClassLoader();
         final URL imageUrl = classLoader.getResource( imageResourceName );
         if ( imageUrl != null ) {
             imageIcon = new ImageIcon( imageUrl );

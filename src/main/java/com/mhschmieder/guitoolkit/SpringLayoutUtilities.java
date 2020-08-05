@@ -51,6 +51,24 @@ import javax.swing.SpringLayout.Constraints;
 public final class SpringLayoutUtilities {
 
     /**
+     * This method serves merely as a sanity check that the Maven integration
+     * and builds work properly and also behave correctly inside Eclipse IDE. It
+     * will likely get removed once I gain more confidence that I have solved
+     * the well-known issues with Maven inside Eclipse as I move on to more
+     * complex projects with dependencies (this project is quite simple and has
+     * no dependencies at this time, until more functionality is added).
+     *
+     * @param args
+     *            The command-line arguments for executing this class as the
+     *            main entry point for an application
+     *
+     * @since 1.0
+     */
+    public static void main( final String[] args ) {
+        System.out.println( "Hello Maven from GuiToolkit!" ); //$NON-NLS-1$
+    }
+
+    /**
      * The default constructor is disabled, as this is a static utilities class.
      */
     private SpringLayoutUtilities() {}
