@@ -42,7 +42,7 @@ import javax.swing.JPanel;
 /**
  * {@code TitledVectorizationXPanel} is an example of a top-level Swing
  * {@link JPanel} that can vectorize via a {@link Graphics2D} instance, and that
- * places a title above the existing panel content when vectorizing to an
+ * places a header title above the existing panel content when vectorizing to an
  * external graphics file.
  * <p>
  * This also avoids the bloat of an entire GUI layout hierarchy storing the
@@ -68,7 +68,7 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
     private static final long serialVersionUID     = -5197086100207909216L;
 
     /**
-     * Guarantee additional padding to avoid the on-page title clipping.
+     * Guarantee additional padding to prevent the header title from clipping.
      */
     public static final int   TITLE_PADDING_TOP    = 6;
 
@@ -78,17 +78,17 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
     public static final int   TITLE_PADDING_BOTTOM = 12;
 
     /**
-     * The title, to be used in displayed content and in the file headers.
+     * The header title, to be used during vectorization but not for display.
      */
     protected String          title;
 
     /**
-     * Declare the {@link Font} for the displayed title.
+     * Declare the {@link Font} for the header title.
      */
     protected Font            titleFont;
 
     /**
-     * Declare the {@link FontMetrics} for the displayed title.
+     * Declare the {@link FontMetrics} for the header title.
      */
     protected FontMetrics     titleFontMetrics;
 
@@ -171,13 +171,13 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
     }
 
     /**
-     * Sets the title that is managed by the implementing component, trimming
-     * for leading and trailing blanks (as they won't show on most vector
-     * graphics output pages anyway) and avoiding null pointers by replacing
-     * with empty titles.
+     * Sets the header title that is managed by the implementing component,
+     * trimming for leading and trailing blanks (as those won't show on most
+     * vector graphics output pages anyway) and avoiding null pointers by
+     * replacing with empty titles.
      *
      * @param newTitle
-     *            The title that is managed by this panel
+     *            The header title that is managed by this panel
      *
      * @since 1.0
      */
@@ -189,10 +189,10 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
     }
 
     /**
-     * Returns the x coordinate of the absolute position of the title for
+     * Returns the x coordinate of the absolute position of the header title for
      * downstream consumers.
      *
-     * @return The x coordinate of the absolute position of the title for
+     * @return The x coordinate of the absolute position of the header title for
      *         downstream consumers
      *
      * @since 1.0
@@ -205,10 +205,10 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
     }
 
     /**
-     * Returns the y coordinate of the absolute position of the title for
+     * Returns the y coordinate of the absolute position of the header title for
      * downstream consumers.
      *
-     * @return The y coordinate of the absolute position of the title for
+     * @return The y coordinate of the absolute position of the header title for
      *         downstream consumers
      *
      * @since 1.0
@@ -221,34 +221,34 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
     }
 
     /**
-     * Returns the x coordinate of the relative position of the title for
+     * Returns the x coordinate of the relative position of the header title for
      * downstream consumers.
      * <p>
-     * This default implementation centers the title within the overall width of
-     * this panel.
+     * This default implementation centers the header title within the overall
+     * width of this panel.
      *
-     * @return The x coordinate of the relative position of the title for
+     * @return The x coordinate of the relative position of the header title for
      *         downstream consumers
      *
      * @since 1.0
      */
     @Override
     public int getTitleOffsetX() {
-        // Center the title over the entire panel.
+        // Center the header title over the entire panel.
         final int titleWidth = titleFontMetrics.stringWidth( title );
         final int titleOffsetX = ( int ) Math.round( 0.5d * ( getWidth() - titleWidth ) );
         return titleOffsetX;
     }
 
     /**
-     * Returns the y coordinate of the relative position of the title for
+     * Returns the y coordinate of the relative position of the header title for
      * downstream consumers.
      * <p>
-     * This default implementation places the title at the top of the page
-     * layout, above the existing content of this panel, accounting for title
-     * height as measured by the Font Metrics.
+     * This default implementation places the header title at the top of the
+     * page layout, above the existing content of this panel, accounting for
+     * title height as measured by the Font Metrics.
      *
-     * @return The y coordinate of the relative position of the title for
+     * @return The y coordinate of the relative position of the header title for
      *         downstream consumers
      *
      * @since 1.0
@@ -257,25 +257,25 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
     public int getTitleOffsetY() {
         // Account for text starting at its baseline vs. at its top.
         //
-        // Note that we assume a one-line title with no word wrap.
+        // Note that we assume a one-line header title with no word wrap.
         final int titleHeight = titleFontMetrics.getHeight();
         final int titleOffsetY = Math.round( TITLE_PADDING_TOP + titleHeight );
         return titleOffsetY;
     }
 
     /**
-     * Draws and positions the cached title via a supplied {@link Graphics2D}
-     * Graphics Context.
+     * Draws and positions the cached header title via a supplied
+     * {@link Graphics2D} Graphics Context.
      * <p>
-     * Although the title is usually just added to file header metadata when
-     * targeting vectorization of a GUI component for a vector graphics file
-     * format, this method is purposed for physically manifesting the title at
-     * the top of the visible layout of the existing page layout, adding it
-     * above the existing on-screen content.
+     * Although the header title is usually just added to file header metadata
+     * when targeting vectorization of a GUI component for a vector graphics
+     * file format, this method is purposed for physically manifesting the
+     * header title at the top of the visible layout of the existing page
+     * layout, adding it above the existing on-screen content.
      *
      * @param graphicsContext
      *            The {@link Graphics2D} Graphics Context to use for drawing the
-     *            title
+     *            header title
      *
      * @since 1.0
      */
@@ -289,7 +289,7 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
         graphicsContext.setColor( getForeground() );
         graphicsContext.setFont( titleFont );
 
-        // Write the title at the top of the output page layout.
+        // Write the header title at the top of the output page layout.
         final int titleX = getTitleX();
         final int titleY = getTitleY();
         graphicsContext.drawString( title, titleX, titleY );
@@ -311,6 +311,29 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
     }
 
     ///////////////// VectorizationXPanel method overrides ///////////////////
+
+    /**
+     * Vectorize this panel to a specific Vector Graphics output format.
+     * <p>
+     * This is an override implementation, which avoids multiple titles due to
+     * there usually being multiple sub-panels to export.
+     * <p>
+     * This method should always be called by the derived classes right away in
+     * their own overrides; it simply enforces that the header title is always
+     * drawn during Vector Graphics Export, and how it is drawn.
+     *
+     * @param graphicsContext
+     *            The wrapped Graphics Context to vectorize the content to
+     * @return The status of whether this export succeeded or not
+     */
+    @Override
+    public boolean vectorize( final Graphics2D graphicsContext ) {
+        // Draw the title first. There is no other header information at this
+        // time. If any is added later on, it should also be drawn here.
+        drawTitle( graphicsContext );
+
+        return true;
+    }
 
     /**
      * Returns the maximum x-coordinate for the source of the vectorization.
