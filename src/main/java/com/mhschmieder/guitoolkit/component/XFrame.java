@@ -64,7 +64,7 @@ public class XFrame extends JFrame implements RenderingHintSource, ForegroundMan
     private static final long serialVersionUID = -6381420940841300763L;
 
     /**
-     * Keep a cached copy of the Rendering Hints for this panel.
+     * Keep a cached copy of the Rendering Hints for this frame.
      */
     private RenderingHints    renderingHints;
 
