@@ -63,7 +63,7 @@ public final class BorderUtilities {
      * inconsistencies over time. It is trivial to write similar functions that
      * serve the same purpose but which present a different style.
      * <p>
-     * This particular set of parameters was chosen to work well with Nimbus.
+     * This particular set of parameters should be Nimbus-compatible.
      *
      * @param title
      *            The title to apply to the border decoration
