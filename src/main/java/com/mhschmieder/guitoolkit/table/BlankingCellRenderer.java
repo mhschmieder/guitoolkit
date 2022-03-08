@@ -28,108 +28,102 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.guitoolkit.component.table;
+package com.mhschmieder.guitoolkit.table;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * {@code TableHeaderRenderer} customizes the {@link DefaultTableCellRenderer}
- * for the behavior and look to be used for header columns.
+ * {@code BlankingCellRenderer} is a further specialization of
+ * {@link TextFieldCellRenderer} to handle cells that need to be blank due to
+ * the irrelevance of data in that cell position.
+ * <p>
+ * An example would be a table that has alternating rows of different data
+ * types, where a customized rendering of cells not in use for each row is more
+ * intuitive to the user than allowing a blank white cell that might be seen as
+ * a run-time error or missing data.
  *
  * @version 1.0
  *
  * @author Mark Schmieder
  */
-public class TableHeaderRenderer extends DefaultTableCellRenderer {
+public class BlankingCellRenderer extends TextFieldCellRenderer {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
-    private static final long serialVersionUID     = 5253201210489004788L;
+    private static final long serialVersionUID = 1813023586744172543L;
 
     /**
-     * Flag for whether to apply stateless cell borders for the header cells.
+     * The "no content" blanking symbol is always centered for clarity.
      */
-    private boolean           statelessCellBorders = false;
+    public static final int   CELL_ALIGNMENT   = SwingConstants.CENTER;
 
     /**
-     * The preferred font size to use for table cell rendering, if available.
+     * The text to use to indicate that a table cell is legitimately blank.
      */
-    private final float       preferredFontSize;
-
-    /**
-     * The {@link Color} to use for header cell background
-     */
-    private final Color       cellBackground;
-
-    /**
-     * The {@link Color} to use for header cell foreground
-     */
-    private final Color       cellForeground;
+    private final String      blankingText;
 
     //////////////////////////// Constructors ////////////////////////////////
 
     /**
-     * Constructs a Table Cell Renderer that is optimized for use in rendering
-     * table headers, such as specifying whether to show cell borders for the
-     * header columns, and sets default background and foreground colors to use
-     * in place of the default gray.
+     * Constructs a Table Cell Renderer that customizes blank cells to be
+     * indicated in some special way, such as with a special background color
+     * and a symbol for data not applicable (often this is the minus sign).
      *
-     * @param setStatelessCellBorders
-     *            {@code true} if cell borders should be set the same regardless
-     *            of focus and selection status; {@code false} otherwise
+     * @param isRowHeader
+     *            {@code true} if this cell should be used as a row header
      * @param fontSize
      *            The preferred size of the fonts to be used by this table cell
      *            renderer
      *
      * @version 1.0
      */
-    public TableHeaderRenderer( final boolean setStatelessCellBorders, final float fontSize ) {
-        this( setStatelessCellBorders,
+    public BlankingCellRenderer( final boolean isRowHeader, final float fontSize ) {
+        this( isRowHeader,
               fontSize,
-              TableConstants.DEFAULT_HEADER_BACKGROUND_COLOR,
-              TableConstants.DEFAULT_HEADER_FOREGROUND_COLOR );
+              TableConstants.DEFAULT_BLANKING_BACKGROUND_COLOR,
+              TableConstants.DEFAULT_BLANKING_FOREGROUND_COLOR,
+              TableConstants.DEFAULT_BLANKING_TEXT );
     }
 
     /**
-     * Constructs a Table Cell Renderer that is optimized for use in rendering
-     * table headers, such as specifying whether to show cell borders for the
-     * header columns, and the preferred custom background and foreground colors
-     * to use in place of the default gray.
+     * Constructs a Table Cell Renderer that customizes blank cells to be
+     * indicated in some special way, such as with a special background color
+     * and a symbol for data not applicable (often this is the minus sign).
      *
-     * @param setStatelessCellBorders
-     *            {@code true} if cell borders should be set the same regardless
-     *            of focus and selection status; {@code false} otherwise
+     * @param isRowHeader
+     *            {@code true} if this cell should be used as a row header
      * @param fontSize
      *            The preferred size of the fonts to be used by this table cell
      *            renderer
      * @param cellBackgroundColor
-     *            The {@link Color} to use for header cell background
+     *            The {@link Color} to use for regular cell background
      * @param cellForegroundColor
-     *            The {@link Color} to use for header cell foreground
+     *            The {@link Color} to use for regular cell foreground
+     * @param blankingSymbol
+     *            The text to use to indicate that a table cell is legitimately
+     *            blank
      *
      * @version 1.0
      */
-    public TableHeaderRenderer( final boolean setStatelessCellBorders,
-                                final float fontSize,
-                                final Color cellBackgroundColor,
-                                final Color cellForegroundColor ) {
+    public BlankingCellRenderer( final boolean isRowHeader,
+                                 final float fontSize,
+                                 final Color cellBackgroundColor,
+                                 final Color cellForegroundColor,
+                                 final String blankingSymbol ) {
         // Always call the superclass constructor first!
-        super();
+        super( isRowHeader,
+               CELL_ALIGNMENT,
+               fontSize,
+               TableConstants.DEFAULT_HEADER_BACKGROUND_COLOR,
+               TableConstants.DEFAULT_HEADER_FOREGROUND_COLOR,
+               cellBackgroundColor,
+               cellForegroundColor );
 
-        statelessCellBorders = setStatelessCellBorders;
-        preferredFontSize = fontSize;
-        cellBackground = cellBackgroundColor;
-        cellForeground = cellForegroundColor;
-
-        setHorizontalAlignment( SwingConstants.CENTER );
-        setHorizontalTextPosition( SwingConstants.CENTER );
+        blankingText = blankingSymbol;
     }
 
     /////////////// DefaultTableCellRenderer method overrides ////////////////
@@ -162,7 +156,6 @@ public class TableHeaderRenderer extends DefaultTableCellRenderer {
      *
      * @version 1.0
      */
-    @SuppressWarnings("nls")
     @Override
     public Component getTableCellRendererComponent( final JTable table,
                                                     final Object value,
@@ -170,7 +163,10 @@ public class TableHeaderRenderer extends DefaultTableCellRenderer {
                                                     final boolean hasFocus,
                                                     final int row,
                                                     final int column ) {
-        final String newValue = ( value instanceof String ) ? ( String ) value : "";
+        final boolean applyRowHeaderStyle = cellIsRowHeader
+                && ( column == TableConstants.COLUMN_ROW_HEADER );
+
+        final Object newValue = applyRowHeaderStyle ? value : blankingText;
 
         final Component component = super.getTableCellRendererComponent( table,
                                                                          newValue,
@@ -178,29 +174,6 @@ public class TableHeaderRenderer extends DefaultTableCellRenderer {
                                                                          hasFocus,
                                                                          row,
                                                                          column );
-
-        // Customize the font for better sizing, conditionally setting the first
-        // column to use a bold italic font as a row header.
-        //
-        // As the system doesn't seem able to find BOLD and/or ITALIC fonts
-        // smaller than 11-point, we use 11-point BOLD and/or ITALIC in such
-        // cases. This may currently be a Windows-specific issue.
-        final Font defaultFont = component.getFont();
-        final float boldFontSize = Math.max( 11f, preferredFontSize );
-        final Font tableCellFont = defaultFont.deriveFont( Font.BOLD | Font.ITALIC, boldFontSize );
-        component.setFont( tableCellFont );
-
-        // Set the background and foreground colors for the table header cells.
-        component.setBackground( cellBackground );
-        component.setForeground( cellForeground );
-
-        // If stateless cell borders are set, make sure the border of each cell
-        // paints the same regardless of focus and selection, as resetting the
-        // background color of the host layout panel may cause it to disappear
-        // on table column headers.
-        if ( statelessCellBorders ) {
-            setBorder( UIManager.getBorder( "TableHeader.cellBorder" ) );
-        }
 
         return component;
     }

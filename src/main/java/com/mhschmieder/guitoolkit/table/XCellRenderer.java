@@ -28,102 +28,81 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.guitoolkit.component.table;
+package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * {@code BlankingCellRenderer} is a further specialization of
- * {@link TextFieldCellRenderer} to handle cells that need to be blank due to
- * the irrelevance of data in that cell position.
+ * {@code XCellRenderer} is a custom base class that extends
+ * {@link DefaultTableCellRenderer} for the behavior and look to be used for
+ * regular cells vs. row headers (when present).
  * <p>
- * An example would be a table that has alternating rows of different data
- * types, where a customized rendering of cells not in use for each row is more
- * intuitive to the user than allowing a blank white cell that might be seen as
- * a run-time error or missing data.
+ * This class will usually not be used directly, as it is designed to be
+ * sub-classed for type-specific behavior (such as for text, numbers, etc.).
  *
  * @version 1.0
  *
  * @author Mark Schmieder
  */
-public class BlankingCellRenderer extends TextFieldCellRenderer {
+public class XCellRenderer extends DefaultTableCellRenderer {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
-    private static final long serialVersionUID = 1813023586744172543L;
+    private static final long serialVersionUID = 2502047223102184045L;
 
     /**
-     * The "no content" blanking symbol is always centered for clarity.
+     * Flag for whether this cell (if {@code true}) is a row header or not.
      */
-    public static final int   CELL_ALIGNMENT   = SwingConstants.CENTER;
+    protected boolean         cellIsRowHeader;
 
     /**
-     * The text to use to indicate that a table cell is legitimately blank.
+     * The horizontal alignment to use for row header cells.
      */
-    private final String      blankingText;
+    private final int         rowHeaderAlignment;
+
+    /**
+     * The horizontal alignment to use for regular cells.
+     */
+    private final int         horizontalAlignment;
+
+    /**
+     * The preferred font size to use for table cell rendering, if available.
+     */
+    private final float       preferredFontSize;
 
     //////////////////////////// Constructors ////////////////////////////////
 
     /**
-     * Constructs a Table Cell Renderer that customizes blank cells to be
-     * indicated in some special way, such as with a special background color
-     * and a symbol for data not applicable (often this is the minus sign).
+     * Constructs a Table Cell Renderer that is generalized for use in regular
+     * cells but can be sub-classed for specific type-based rendering.
      *
-     * @param isRowHeader
+     * @param setAsRowHeader
      *            {@code true} if this cell should be used as a row header
+     * @param rowHeaderCellAlignment
+     *            The alignment to use if this cell is a row header
+     * @param cellAlignment
+     *            The alignment to use if this cell is not a row header
      * @param fontSize
      *            The preferred size of the fonts to be used by this table cell
      *            renderer
      *
      * @version 1.0
      */
-    public BlankingCellRenderer( final boolean isRowHeader, final float fontSize ) {
-        this( isRowHeader,
-              fontSize,
-              TableConstants.DEFAULT_BLANKING_BACKGROUND_COLOR,
-              TableConstants.DEFAULT_BLANKING_FOREGROUND_COLOR,
-              TableConstants.DEFAULT_BLANKING_TEXT );
-    }
-
-    /**
-     * Constructs a Table Cell Renderer that customizes blank cells to be
-     * indicated in some special way, such as with a special background color
-     * and a symbol for data not applicable (often this is the minus sign).
-     *
-     * @param isRowHeader
-     *            {@code true} if this cell should be used as a row header
-     * @param fontSize
-     *            The preferred size of the fonts to be used by this table cell
-     *            renderer
-     * @param cellBackgroundColor
-     *            The {@link Color} to use for regular cell background
-     * @param cellForegroundColor
-     *            The {@link Color} to use for regular cell foreground
-     * @param blankingSymbol
-     *            The text to use to indicate that a table cell is legitimately
-     *            blank
-     *
-     * @version 1.0
-     */
-    public BlankingCellRenderer( final boolean isRowHeader,
-                                 final float fontSize,
-                                 final Color cellBackgroundColor,
-                                 final Color cellForegroundColor,
-                                 final String blankingSymbol ) {
+    public XCellRenderer( final boolean setAsRowHeader,
+                          final int rowHeaderCellAlignment,
+                          final int cellAlignment,
+                          final float fontSize ) {
         // Always call the superclass constructor first!
-        super( isRowHeader,
-               CELL_ALIGNMENT,
-               fontSize,
-               TableConstants.DEFAULT_HEADER_BACKGROUND_COLOR,
-               TableConstants.DEFAULT_HEADER_FOREGROUND_COLOR,
-               cellBackgroundColor,
-               cellForegroundColor );
+        super();
 
-        blankingText = blankingSymbol;
+        cellIsRowHeader = setAsRowHeader;
+        rowHeaderAlignment = rowHeaderCellAlignment;
+        horizontalAlignment = cellAlignment;
+        preferredFontSize = fontSize;
     }
 
     /////////////// DefaultTableCellRenderer method overrides ////////////////
@@ -166,14 +145,39 @@ public class BlankingCellRenderer extends TextFieldCellRenderer {
         final boolean applyRowHeaderStyle = cellIsRowHeader
                 && ( column == TableConstants.COLUMN_ROW_HEADER );
 
-        final Object newValue = applyRowHeaderStyle ? value : blankingText;
+        final int horizontalAlignmentAdjusted = applyRowHeaderStyle
+            ? rowHeaderAlignment
+            : horizontalAlignment;
+        setHorizontalAlignment( horizontalAlignmentAdjusted );
+        setHorizontalTextPosition( horizontalAlignmentAdjusted );
 
         final Component component = super.getTableCellRendererComponent( table,
-                                                                         newValue,
+                                                                         value,
                                                                          isSelected,
                                                                          hasFocus,
                                                                          row,
                                                                          column );
+
+        // Customize the font for better sizing, conditionally setting the first
+        // column to use a bold italic font as a row header.
+        //
+        // As the system doesn't seem able to find BOLD and/or ITALIC fonts
+        // smaller than 11-point, we use 11-point BOLD and/or ITALIC in such
+        // cases. This may currently be a Windows-specific issue.
+        //
+        // We also avoid fonts larger than 12-point, as Nimbus uses large fonts
+        // by default, which causes clipping problems when inside cell editors.
+        final Font defaultFont = component.getFont();
+        final float boldFontSize = Math.max( 11f, preferredFontSize );
+        final float plainFontSize = Math.min( 12f, preferredFontSize );
+        final Font tableCellFont = applyRowHeaderStyle
+            ? defaultFont.deriveFont( Font.BOLD | Font.ITALIC, boldFontSize )
+            : defaultFont.deriveFont( Font.PLAIN, plainFontSize );
+        component.setFont( tableCellFont );
+
+        // This is temporary code for debugging purposes, to see what fonts are
+        // selected on each platform.
+        // System.out.println( tableCellFont.getName() );
 
         return component;
     }

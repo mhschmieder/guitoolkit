@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.guitoolkit.component.table;
+package com.mhschmieder.guitoolkit.table;
 
 import javax.swing.DefaultCellEditor;
 

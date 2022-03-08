@@ -49,9 +49,9 @@ import javax.swing.table.TableModel;
 
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 import com.mhschmieder.guitoolkit.border.BorderUtilities;
-import com.mhschmieder.guitoolkit.component.table.TableHeaderRenderer;
-import com.mhschmieder.guitoolkit.component.table.TableInitializationUtilities;
-import com.mhschmieder.guitoolkit.component.table.TableVectorizationUtilities;
+import com.mhschmieder.guitoolkit.table.TableHeaderRenderer;
+import com.mhschmieder.guitoolkit.table.TableInitializationUtilities;
+import com.mhschmieder.guitoolkit.table.TableVectorizationUtilities;
 
 /**
  * {@code TableXPanel} is an abstract base class that serves as a

@@ -36,4 +36,4 @@
  *
  * @author Mark Schmieder
  */
-package com.mhschmieder.guitoolkit.component.table;
+package com.mhschmieder.guitoolkit.table;

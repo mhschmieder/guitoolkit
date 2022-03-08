@@ -52,7 +52,7 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.text.JTextComponent;
 
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
-import com.mhschmieder.guitoolkit.component.table.TableConstants;
+import com.mhschmieder.guitoolkit.table.TableConstants;
 
 /**
  * {@code XTable} is an enhanced table base class for Swing that adds

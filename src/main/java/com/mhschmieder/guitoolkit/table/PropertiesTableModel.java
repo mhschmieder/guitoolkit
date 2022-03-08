@@ -28,25 +28,29 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.guitoolkit.component.table;
+package com.mhschmieder.guitoolkit.table;
 
 import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
 /**
- * {@code DataViewTableModel} is a specialization of {@link DefaultTableModel}
- * that allows for class-specific per-column data handling within a table.
+ * {@code PropertiesTableModel} is a specialization of {@link DefaultTableModel}
+ * that allows for class-specific per-column properties handling within a table.
+ * <p>
+ * This class may be expanded at some point, to pass in a vector of booleans to
+ * indicate which columns are editable, and also use this to determine the
+ * number of valid data columns. This would satisfy most sub-classing needs.
  *
  * @version 1.0
  *
  * @author Mark Schmieder
  */
-public class DataViewTableModel extends DefaultTableModel {
+public class PropertiesTableModel extends DefaultTableModel {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
-    private static final long serialVersionUID = 6245585598012313708L;
+    private static final long serialVersionUID = 7714745412164574786L;
 
     /**
      * Flag for whether to log exceptions (if {@code true}) or not.
@@ -56,31 +60,31 @@ public class DataViewTableModel extends DefaultTableModel {
     //////////////////////////// Constructors ////////////////////////////////
 
     /**
-     * Constructs a specific {@code DataViewTableModel} that already has initial
-     * data (or default data; it may not need to change) that gets passed in.
+     * Constructs a specific {@code PropertiesTableModel} that has column names
+     * but no initial or default data. These are generally editable tables.
      * <p>
      * As the other base class constructors are public, it is still possible to
      * invoke them instead, when one doesn't have initial data or doesn't have
      * it in the specified format. But it is not advised, as clients of this
      * data model might as a result end of with null or empty data references.
      *
-     * @param data
-     *            The initial data for the table
      * @param columnNames
      *            The names of the table columns
+     * @param rowCount
+     *            The number of rows the table holds
      * @param shouldLogExceptions
      *            {@code true} if exceptions should be logged; {@code false}
      *            otherwise
-     * @see #getDataVector
      * @see #setDataVector
+     * @see #setValueAt
      *
      * @version 1.0
      */
-    public DataViewTableModel( final Object[][] data,
-                               final Object[] columnNames,
-                               final boolean shouldLogExceptions ) {
+    public PropertiesTableModel( final Object[] columnNames,
+                                 final int rowCount,
+                                 final boolean shouldLogExceptions ) {
         // Always call the superclass constructor first!
-        super( data, columnNames );
+        super( columnNames, rowCount );
 
         logExceptions = shouldLogExceptions;
     }
@@ -88,26 +92,34 @@ public class DataViewTableModel extends DefaultTableModel {
     ////////////////// DefaultTableModel method overrides ////////////////////
 
     /**
-     * Returns {@code false} regardless of parameter values, because a data
-     * table is for display only vs. user interaction and input.
+     * Returns {@code true} regardless of parameter values, because a properties
+     * table is mostly for user interaction and input.
      * <p>
      * This method models the lowest common denominator for global behavior, and
      * represents the only table model property that is always valid no matter
      * what else changes in the table. As such, it should not be used by client
      * code to determine when a specific cell is editable; only the JVM should
      * invoke this method.
+     * <p>
+     * This class should be sub-classed and this method overridden if there is a
+     * need to exclude any columns from keyboard focus.
      *
      * @param row
      *            The row whose value is to be queried
      * @param column
      *            The column whose value is to be queried
-     * @return {@code false} always
+     * @return {@code true} always
      *
      * @version 1.0
      */
     @Override
-    public final boolean isCellEditable( final int row, final int column ) {
-        return false;
+    public boolean isCellEditable( final int row, final int column ) {
+        // All cells are editable if they are modifiable in any way. This is not
+        // the same thing as saying that a combo box can have new items added to
+        // the list. Unless a cell containing a combo box returns "true" from
+        // this method, it will never be able to display a drop-list for
+        // selection. Note that check boxes must be editable.
+        return true;
     }
 
     /**
@@ -159,7 +171,7 @@ public class DataViewTableModel extends DefaultTableModel {
      * @version 1.0
      */
     @Override
-    public final Class< ? > getColumnClass( final int columnIndex ) {
+    public Class< ? > getColumnClass( final int columnIndex ) {
         try {
             // This isn't made generic until Java 9; switch the code then.
             // final Vector< ? > v = dataVector.elementAt( 0 );

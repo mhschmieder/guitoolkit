@@ -40,9 +40,9 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
-import com.mhschmieder.guitoolkit.component.table.DataViewCellRenderer;
-import com.mhschmieder.guitoolkit.component.table.DataViewTableModel;
-import com.mhschmieder.guitoolkit.component.table.TableVectorizationUtilities;
+import com.mhschmieder.guitoolkit.table.DataViewCellRenderer;
+import com.mhschmieder.guitoolkit.table.DataViewTableModel;
+import com.mhschmieder.guitoolkit.table.TableVectorizationUtilities;
 
 /**
  * {@code DataViewXComponent} is an abstract base class that serves as a

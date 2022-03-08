@@ -28,81 +28,108 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.guitoolkit.component.table;
+package com.mhschmieder.guitoolkit.table;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * {@code XCellRenderer} is a custom base class that extends
- * {@link DefaultTableCellRenderer} for the behavior and look to be used for
- * regular cells vs. row headers (when present).
- * <p>
- * This class will usually not be used directly, as it is designed to be
- * sub-classed for type-specific behavior (such as for text, numbers, etc.).
+ * {@code TableHeaderRenderer} customizes the {@link DefaultTableCellRenderer}
+ * for the behavior and look to be used for header columns.
  *
  * @version 1.0
  *
  * @author Mark Schmieder
  */
-public class XCellRenderer extends DefaultTableCellRenderer {
+public class TableHeaderRenderer extends DefaultTableCellRenderer {
     /**
      * Unique Serial Version ID for this class, to avoid class loader conflicts.
      */
-    private static final long serialVersionUID = 2502047223102184045L;
+    private static final long serialVersionUID     = 5253201210489004788L;
 
     /**
-     * Flag for whether this cell (if {@code true}) is a row header or not.
+     * Flag for whether to apply stateless cell borders for the header cells.
      */
-    protected boolean         cellIsRowHeader;
-
-    /**
-     * The horizontal alignment to use for row header cells.
-     */
-    private final int         rowHeaderAlignment;
-
-    /**
-     * The horizontal alignment to use for regular cells.
-     */
-    private final int         horizontalAlignment;
+    private boolean           statelessCellBorders = false;
 
     /**
      * The preferred font size to use for table cell rendering, if available.
      */
     private final float       preferredFontSize;
 
+    /**
+     * The {@link Color} to use for header cell background
+     */
+    private final Color       cellBackground;
+
+    /**
+     * The {@link Color} to use for header cell foreground
+     */
+    private final Color       cellForeground;
+
     //////////////////////////// Constructors ////////////////////////////////
 
     /**
-     * Constructs a Table Cell Renderer that is generalized for use in regular
-     * cells but can be sub-classed for specific type-based rendering.
+     * Constructs a Table Cell Renderer that is optimized for use in rendering
+     * table headers, such as specifying whether to show cell borders for the
+     * header columns, and sets default background and foreground colors to use
+     * in place of the default gray.
      *
-     * @param setAsRowHeader
-     *            {@code true} if this cell should be used as a row header
-     * @param rowHeaderCellAlignment
-     *            The alignment to use if this cell is a row header
-     * @param cellAlignment
-     *            The alignment to use if this cell is not a row header
+     * @param setStatelessCellBorders
+     *            {@code true} if cell borders should be set the same regardless
+     *            of focus and selection status; {@code false} otherwise
      * @param fontSize
      *            The preferred size of the fonts to be used by this table cell
      *            renderer
      *
      * @version 1.0
      */
-    public XCellRenderer( final boolean setAsRowHeader,
-                          final int rowHeaderCellAlignment,
-                          final int cellAlignment,
-                          final float fontSize ) {
+    public TableHeaderRenderer( final boolean setStatelessCellBorders, final float fontSize ) {
+        this( setStatelessCellBorders,
+              fontSize,
+              TableConstants.DEFAULT_HEADER_BACKGROUND_COLOR,
+              TableConstants.DEFAULT_HEADER_FOREGROUND_COLOR );
+    }
+
+    /**
+     * Constructs a Table Cell Renderer that is optimized for use in rendering
+     * table headers, such as specifying whether to show cell borders for the
+     * header columns, and the preferred custom background and foreground colors
+     * to use in place of the default gray.
+     *
+     * @param setStatelessCellBorders
+     *            {@code true} if cell borders should be set the same regardless
+     *            of focus and selection status; {@code false} otherwise
+     * @param fontSize
+     *            The preferred size of the fonts to be used by this table cell
+     *            renderer
+     * @param cellBackgroundColor
+     *            The {@link Color} to use for header cell background
+     * @param cellForegroundColor
+     *            The {@link Color} to use for header cell foreground
+     *
+     * @version 1.0
+     */
+    public TableHeaderRenderer( final boolean setStatelessCellBorders,
+                                final float fontSize,
+                                final Color cellBackgroundColor,
+                                final Color cellForegroundColor ) {
         // Always call the superclass constructor first!
         super();
 
-        cellIsRowHeader = setAsRowHeader;
-        rowHeaderAlignment = rowHeaderCellAlignment;
-        horizontalAlignment = cellAlignment;
+        statelessCellBorders = setStatelessCellBorders;
         preferredFontSize = fontSize;
+        cellBackground = cellBackgroundColor;
+        cellForeground = cellForegroundColor;
+
+        setHorizontalAlignment( SwingConstants.CENTER );
+        setHorizontalTextPosition( SwingConstants.CENTER );
     }
 
     /////////////// DefaultTableCellRenderer method overrides ////////////////
@@ -135,6 +162,7 @@ public class XCellRenderer extends DefaultTableCellRenderer {
      *
      * @version 1.0
      */
+    @SuppressWarnings("nls")
     @Override
     public Component getTableCellRendererComponent( final JTable table,
                                                     final Object value,
@@ -142,17 +170,10 @@ public class XCellRenderer extends DefaultTableCellRenderer {
                                                     final boolean hasFocus,
                                                     final int row,
                                                     final int column ) {
-        final boolean applyRowHeaderStyle = cellIsRowHeader
-                && ( column == TableConstants.COLUMN_ROW_HEADER );
-
-        final int horizontalAlignmentAdjusted = applyRowHeaderStyle
-            ? rowHeaderAlignment
-            : horizontalAlignment;
-        setHorizontalAlignment( horizontalAlignmentAdjusted );
-        setHorizontalTextPosition( horizontalAlignmentAdjusted );
+        final String newValue = ( value instanceof String ) ? ( String ) value : "";
 
         final Component component = super.getTableCellRendererComponent( table,
-                                                                         value,
+                                                                         newValue,
                                                                          isSelected,
                                                                          hasFocus,
                                                                          row,
@@ -164,20 +185,22 @@ public class XCellRenderer extends DefaultTableCellRenderer {
         // As the system doesn't seem able to find BOLD and/or ITALIC fonts
         // smaller than 11-point, we use 11-point BOLD and/or ITALIC in such
         // cases. This may currently be a Windows-specific issue.
-        //
-        // We also avoid fonts larger than 12-point, as Nimbus uses large fonts
-        // by default, which causes clipping problems when inside cell editors.
         final Font defaultFont = component.getFont();
         final float boldFontSize = Math.max( 11f, preferredFontSize );
-        final float plainFontSize = Math.min( 12f, preferredFontSize );
-        final Font tableCellFont = applyRowHeaderStyle
-            ? defaultFont.deriveFont( Font.BOLD | Font.ITALIC, boldFontSize )
-            : defaultFont.deriveFont( Font.PLAIN, plainFontSize );
+        final Font tableCellFont = defaultFont.deriveFont( Font.BOLD | Font.ITALIC, boldFontSize );
         component.setFont( tableCellFont );
 
-        // This is temporary code for debugging purposes, to see what fonts are
-        // selected on each platform.
-        // System.out.println( tableCellFont.getName() );
+        // Set the background and foreground colors for the table header cells.
+        component.setBackground( cellBackground );
+        component.setForeground( cellForeground );
+
+        // If stateless cell borders are set, make sure the border of each cell
+        // paints the same regardless of focus and selection, as resetting the
+        // background color of the host layout panel may cause it to disappear
+        // on table column headers.
+        if ( statelessCellBorders ) {
+            setBorder( UIManager.getBorder( "TableHeader.cellBorder" ) );
+        }
 
         return component;
     }
