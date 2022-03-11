@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020 Mark Schmieder
+ * Copyright (c) 2020, 2022 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -295,7 +295,7 @@ public class NumberEditor extends JTextField {
         }
         catch ( final Exception e ) {
             e.printStackTrace();
-            return 0d;
+            return 0.0d;
         }
     }
 
@@ -336,7 +336,7 @@ public class NumberEditor extends JTextField {
         }
         catch ( final Exception e ) {
             e.printStackTrace();
-            return 0d;
+            return 0.0d;
         }
     }
 
@@ -358,7 +358,7 @@ public class NumberEditor extends JTextField {
      */
     @SuppressWarnings("nls")
     public void setPositiveQualifiedValue( final double value ) {
-        if ( value > 0d ) {
+        if ( value > 0.0d ) {
             final StringBuffer positiveQualifiedNumber = numberFormat
                     .format( value,
                              new StringBuffer( "+" ),
