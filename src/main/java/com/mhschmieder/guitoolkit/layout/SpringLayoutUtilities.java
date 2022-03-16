@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.guitoolkit;
+package com.mhschmieder.guitoolkit.layout;
 
 import java.awt.Component;
 import java.awt.Container;
