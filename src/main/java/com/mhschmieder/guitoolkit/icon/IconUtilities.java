@@ -54,18 +54,26 @@ public final class IconUtilities {
      * @version 1.0
      */
     public static int getIconSize( final IconContext iconContext ) {
+        int iconSize = 0;
+        
         switch ( iconContext ) {
         case FRAME_TITLE:
-            return IconConstants.FRAME_TITLE_ICON_SIZE;
+            iconSize = IconConstants.FRAME_TITLE_ICON_SIZE;
+            break;
         case MENU:
-            return IconConstants.MENU_ICON_SIZE;
+            iconSize = IconConstants.MENU_ICON_SIZE;
+            break;
         case TOOLBAR:
-            return IconConstants.TOOLBAR_ICON_SIZE;
+            iconSize = IconConstants.TOOLBAR_ICON_SIZE;
+            break;
         case CONTROL_PANEL:
-            return IconConstants.CONTROL_PANEL_ICON_SIZE;
+            iconSize = IconConstants.CONTROL_PANEL_ICON_SIZE;
+            break;
         default:
-            return 0;
+            break;
         }
+        
+        return iconSize;
     }
 
     /**
@@ -80,18 +88,26 @@ public final class IconUtilities {
      * @version 1.0
      */
     public static int getIconInsetsValue( final IconContext iconContext ) {
+        int iconInset = 0;
+        
         switch ( iconContext ) {
         case FRAME_TITLE:
-            return IconConstants.FRAME_TITLE_ICON_INSET;
+            iconInset = IconConstants.FRAME_TITLE_ICON_INSET;
+            break;
         case MENU:
-            return IconConstants.MENU_ICON_INSET;
+            iconInset = IconConstants.MENU_ICON_INSET;
+            break;
         case TOOLBAR:
-            return IconConstants.TOOLBAR_ICON_INSET;
+            iconInset = IconConstants.TOOLBAR_ICON_INSET;
+            break;
         case CONTROL_PANEL:
-            return IconConstants.CONTROL_PANEL_ICON_INSET;
+            iconInset = IconConstants.CONTROL_PANEL_ICON_INSET;
+            break;
         default:
-            return 0;
+            break;
         }
+        
+        return iconInset;
     }
 
 }
