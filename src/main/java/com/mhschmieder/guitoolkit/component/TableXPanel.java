@@ -47,6 +47,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 import com.mhschmieder.guitoolkit.border.BorderUtilities;
 import com.mhschmieder.guitoolkit.table.TableHeaderRenderer;
@@ -671,7 +673,7 @@ public abstract class TableXPanel extends XPanel {
             // the default selection to be the last valid row index.
             if ( autoSelectionEnabled ) {
                 final int maximumRowIndex = getLastRowIndex();
-                selectionIndex = Math.max( selectionIndex, maximumRowIndex );
+                selectionIndex = FastMath.max( selectionIndex, maximumRowIndex );
             }
         }
 
@@ -722,7 +724,7 @@ public abstract class TableXPanel extends XPanel {
         final int lastRowIndex = getLastRowIndex();
         final int adjustedRowIndex = ( ( rowIndex < 0 ) || ( rowIndex > lastRowIndex ) )
             ? lastRowIndex
-            : Math.min( rowIndex, lastRowIndex );
+            : FastMath.min( rowIndex, lastRowIndex );
         if ( adjustedRowIndex >= 0 ) {
             table.setRowSelectionInterval( adjustedRowIndex, adjustedRowIndex );
         }

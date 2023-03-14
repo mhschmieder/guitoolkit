@@ -40,6 +40,8 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 /**
@@ -162,7 +164,7 @@ public class XSlider extends JSlider implements ForegroundManager {
             @Override
             public void mouseClicked( final MouseEvent me ) {
                 if ( me.getClickCount() == 2 ) {
-                    setValue( ( int ) Math.round( defaultValue ) );
+                    setValue( ( int ) FastMath.round( defaultValue ) );
                     numberEditor.reset();
                 }
             }
@@ -198,7 +200,7 @@ public class XSlider extends JSlider implements ForegroundManager {
      * @version 1.0
      */
     public final void setTickSpacing( final double minimumValue, final double maximumValue ) {
-        setTickSpacing( ( int ) Math.round( minimumValue ), ( int ) Math.round( maximumValue ) );
+        setTickSpacing( ( int ) FastMath.round( minimumValue ), ( int ) FastMath.round( maximumValue ) );
     }
 
     /**
@@ -302,7 +304,7 @@ public class XSlider extends JSlider implements ForegroundManager {
      * @version 1.0
      */
     public final void setMinimum( final double minimumValue ) {
-        setMinimum( ( int ) Math.round( minimumValue ) );
+        setMinimum( ( int ) FastMath.round( minimumValue ) );
     }
 
     /**
@@ -317,7 +319,7 @@ public class XSlider extends JSlider implements ForegroundManager {
      * @version 1.0
      */
     public final void setMaximum( final double maximumValue ) {
-        setMaximum( ( int ) Math.round( maximumValue ) );
+        setMaximum( ( int ) FastMath.round( maximumValue ) );
     }
 
 }

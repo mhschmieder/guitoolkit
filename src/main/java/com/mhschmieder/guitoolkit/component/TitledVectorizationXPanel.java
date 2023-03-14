@@ -39,6 +39,8 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
+import org.apache.commons.math3.util.FastMath;
+
 /**
  * {@code TitledVectorizationXPanel} is an example of a top-level Swing
  * {@link JPanel} that can vectorize via a {@link Graphics2D} instance, and that
@@ -236,7 +238,7 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
     public int getTitleOffsetX() {
         // Center the header title over the entire panel.
         final int titleWidth = titleFontMetrics.stringWidth( title );
-        final int titleOffsetX = ( int ) Math.round( 0.5d * ( getWidth() - titleWidth ) );
+        final int titleOffsetX = ( int ) FastMath.round( 0.5d * ( getWidth() - titleWidth ) );
         return titleOffsetX;
     }
 
@@ -259,7 +261,7 @@ public class TitledVectorizationXPanel extends VectorizationXPanel implements Ti
         //
         // Note that we assume a one-line header title with no word wrap.
         final int titleHeight = titleFontMetrics.getHeight();
-        final int titleOffsetY = Math.round( TITLE_PADDING_TOP + titleHeight );
+        final int titleOffsetY = FastMath.round( TITLE_PADDING_TOP + titleHeight );
         return titleOffsetY;
     }
 

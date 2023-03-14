@@ -36,6 +36,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 
+import org.apache.commons.math3.util.FastMath;
+
 /**
  * {@code TextIcon} is a specialization of {@link ButtonIcon} that renders text
  * directly to an icon.
@@ -157,7 +159,7 @@ public class TextIcon extends ButtonIcon {
         graphicsContext.setColor( Color.DARK_GRAY );
 
         // As a rough guess, use a bold font that is 3/4 the icon height.
-        final int fontSize = ( int ) Math.floor( 0.75f * getIconHeight() );
+        final int fontSize = ( int ) FastMath.floor( 0.75f * getIconHeight() );
         final Font iconFont = new Font( "SansSerif", Font.BOLD, fontSize );
         graphicsContext.setFont( iconFont );
 

@@ -32,6 +32,8 @@ package com.mhschmieder.guitoolkit.component;
 
 import java.awt.EventQueue;
 
+import org.apache.commons.math3.util.FastMath;
+
 /**
  * {@code DynamicTableXPanel} is a further abstraction of {@link TableXPanel}
  * that sets up the functionality that is likely to be shared by all multi-row
@@ -265,7 +267,7 @@ public abstract class DynamicTableXPanel extends TableXPanel {
             // A reasonable compromise is to assume table height of twenty rows
             // and scroll to half that row count beyond the initial reference
             // row index requested for the row insert.
-            final int scrollToRow = Math.min( referenceIndex + 10, table.getRowCount() - 1 );
+            final int scrollToRow = FastMath.min( referenceIndex + 10, table.getRowCount() - 1 );
             table.scrollRectToVisible( table
                     .getCellRect( scrollToRow, table.getColumnCount(), false ) );
         } );

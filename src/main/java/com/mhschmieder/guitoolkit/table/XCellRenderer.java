@@ -36,6 +36,8 @@ import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import org.apache.commons.math3.util.FastMath;
+
 /**
  * {@code XCellRenderer} is a custom base class that extends
  * {@link DefaultTableCellRenderer} for the behavior and look to be used for
@@ -168,8 +170,8 @@ public class XCellRenderer extends DefaultTableCellRenderer {
         // We also avoid fonts larger than 12-point, as Nimbus uses large fonts
         // by default, which causes clipping problems when inside cell editors.
         final Font defaultFont = component.getFont();
-        final float boldFontSize = Math.max( 11f, preferredFontSize );
-        final float plainFontSize = Math.min( 12f, preferredFontSize );
+        final float boldFontSize = FastMath.max( 11f, preferredFontSize );
+        final float plainFontSize = FastMath.min( 12f, preferredFontSize );
         final Font tableCellFont = applyRowHeaderStyle
             ? defaultFont.deriveFont( Font.BOLD | Font.ITALIC, boldFontSize )
             : defaultFont.deriveFont( Font.PLAIN, plainFontSize );

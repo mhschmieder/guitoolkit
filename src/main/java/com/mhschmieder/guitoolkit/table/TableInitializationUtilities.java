@@ -38,6 +38,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import org.apache.commons.math3.util.FastMath;
+
 /**
  * {@code TableInitializationUtilities} is a utility class for Swing based table
  * methods related to initializations of cell renderers, row sizing, etc.
@@ -144,7 +146,7 @@ public class TableInitializationUtilities {
             // Get the preferred height for the current row, and use it to
             // update overall preferred row height for the selected row range.
             final int preferredRowHeight = getPreferredRowHeight( table, row, rowHeight, margin );
-            rowHeight = Math.max( rowHeight, preferredRowHeight );
+            rowHeight = FastMath.max( rowHeight, preferredRowHeight );
         }
 
         // Set the row heights for the entire table, based on the assigned cell
@@ -183,7 +185,7 @@ public class TableInitializationUtilities {
             final TableCellRenderer renderer = table.getCellRenderer( row, column );
             final Component component = table.prepareRenderer( renderer, row, column );
             final int preferredCellHeight = component.getPreferredSize().height + ( margin * 2 );
-            preferredRowHeight = Math.max( preferredRowHeight, preferredCellHeight );
+            preferredRowHeight = FastMath.max( preferredRowHeight, preferredCellHeight );
         }
 
         return preferredRowHeight;

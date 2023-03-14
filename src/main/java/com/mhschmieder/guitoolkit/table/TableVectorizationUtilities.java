@@ -45,6 +45,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 /**
@@ -358,7 +360,7 @@ public final class TableVectorizationUtilities {
             // alignment.
             break;
         case SwingConstants.CENTER:
-            rowXAligned += ( int ) Math.round( 0.5d * ( columnWidth - cellDataWidth ) );
+            rowXAligned += ( int ) FastMath.round( 0.5d * ( columnWidth - cellDataWidth ) );
             break;
         case SwingConstants.RIGHT:
             rowXAligned += columnWidth - cellDataWidth;

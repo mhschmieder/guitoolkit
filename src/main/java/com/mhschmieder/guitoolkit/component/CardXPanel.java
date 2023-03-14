@@ -38,6 +38,8 @@ import java.awt.LayoutManager;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import org.apache.commons.math3.util.FastMath;
+
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 /**
@@ -220,7 +222,7 @@ public class CardXPanel extends XPanel implements CardManager {
      */
     @Override
     public void setNumberOfCards( final int numberOfCardsToAllow ) {
-        numberOfCards = Math.max( numberOfCardsToAllow, 0 );
+        numberOfCards = FastMath.max( numberOfCardsToAllow, 0 );
     }
 
     /**

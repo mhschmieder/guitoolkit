@@ -39,6 +39,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import org.apache.commons.math3.util.FastMath;
+
 /**
  * {@code TableHeaderRenderer} customizes the {@link DefaultTableCellRenderer}
  * for the behavior and look to be used for header columns.
@@ -186,7 +188,7 @@ public class TableHeaderRenderer extends DefaultTableCellRenderer {
         // smaller than 11-point, we use 11-point BOLD and/or ITALIC in such
         // cases. This may currently be a Windows-specific issue.
         final Font defaultFont = component.getFont();
-        final float boldFontSize = Math.max( 11f, preferredFontSize );
+        final float boldFontSize = FastMath.max( 11f, preferredFontSize );
         final Font tableCellFont = defaultFont.deriveFont( Font.BOLD | Font.ITALIC, boldFontSize );
         component.setFont( tableCellFont );
 
