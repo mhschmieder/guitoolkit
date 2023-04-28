@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.util.Vector;
+import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -162,9 +162,9 @@ public class DataViewTableModel extends DefaultTableModel {
     public final Class< ? > getColumnClass( final int columnIndex ) {
         try {
             // This isn't made generic until Java 9; switch the code then.
-            // final Vector< ? > v = dataVector.elementAt( 0 );
-            final Vector< ? > v = ( Vector< ? > ) dataVector.elementAt( 0 );
-            return v.elementAt( columnIndex ).getClass();
+            // final List< ? > v = dataVector.get( 0 );
+            final List< ? > v = ( List< ? > ) dataVector.get( 0 );
+            return v.get( columnIndex ).getClass();
         }
         catch ( final Exception e ) {
             if ( logExceptions ) {
