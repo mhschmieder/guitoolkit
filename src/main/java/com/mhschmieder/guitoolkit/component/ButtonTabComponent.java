@@ -33,6 +33,7 @@ package com.mhschmieder.guitoolkit.component;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,8 +56,10 @@ public class ButtonTabComponent extends JPanel {
      * Creates a new ButtonTabComponent to host custom TabButtons.
      * 
      * @param tabbedPane The TabbedPane that owns this custom JPanel
+     * @param tabIcon An optional icon to display in the Label for the Tab
      */
-    public ButtonTabComponent( final JTabbedPane tabbedPane ) {
+    public ButtonTabComponent( final JTabbedPane tabbedPane,
+                               final Icon tabIcon ) {
         // Un-set the default FlowLayout's gaps.
         super( new FlowLayout( FlowLayout.LEADING, 0, 0 ) );
         
@@ -90,6 +93,11 @@ public class ButtonTabComponent extends JPanel {
             }
         };        
         add( label );
+        
+        // Set the optional tab icon, if present.
+        if ( tabIcon != null ) {
+            label.setIcon( tabIcon );
+        }
         
         // Add more space between the label and the button.
         label.setBorder( BorderFactory.createEmptyBorder( 0, 0, 0, 5 ) );
