@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2023 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,8 @@ package com.mhschmieder.guitoolkit.icon;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
+
+import com.mhschmieder.guitoolkit.component.ButtonUtilities;
 
 /**
  * {@code IconFactory} is a factory class for making Swing based icons.
@@ -67,16 +69,19 @@ public final class IconFactory {
      * @since 1.0
      */
     public static ImageIcon makeImageIcon( final String imageResourceName ) {
-        ImageIcon imageIcon = null;
-
-        // Demand-load the image resource to be immediately available.
-        final ClassLoader classLoader = IconUtilities.class.getClassLoader();
-        final URL imageUrl = classLoader.getResource( imageResourceName );
-        if ( imageUrl != null ) {
-            imageIcon = new ImageIcon( imageUrl );
+        // If no valid non-empty resource name provided, return a null icon.
+        if ( ( imageResourceName == null ) || imageResourceName.isEmpty() ) {
+            return null;
         }
-
-        return imageIcon;
+        
+        // Demand-load the image icon resource to be immediately available.
+        try {
+            final URL imageUrl = IconFactory.class.getResource( imageResourceName );
+            return ( imageUrl != null ) ? new ImageIcon( imageUrl ) : null;
+        }
+        catch ( final Exception e ) {
+            e.printStackTrace();
+            return null;
+        }
     }
-
 }

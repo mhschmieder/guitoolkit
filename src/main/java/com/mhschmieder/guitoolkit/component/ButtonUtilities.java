@@ -30,14 +30,14 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.AbstractButton;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
+
+import com.mhschmieder.guitoolkit.icon.IconFactory;
 
 public class ButtonUtilities {
     // We have chosen the ampersand as the mnemonic marker, to be compatible
@@ -50,32 +50,6 @@ public class ButtonUtilities {
                                                         final ResourceBundle resourceBundle ) {
         //return getButtonText( groupName, itemName, false, resourceBundle );
         return getButtonText( groupName, itemName, resourceBundle );
-    }
-
-    // Get button icon from a JAR-resident resource, if applicable.
-    // TODO: Algorithmically tag the icon size to a partially specified name?
-    private static final Icon getButtonIcon(    final AbstractButton button,
-                                                final String iconFilename ) {
-        // Fail-safe check to avoid unnecessary null pointer exceptions.
-        if ( button == null ) {
-            return null;
-        }
-
-        // If no valid icon file (with extension) provided, return a null icon.
-        if ( ( iconFilename == null ) || ( iconFilename.length() < 5 ) ) {
-            return null;
-        }
-
-        // Return the referenced button image from the project's jar file.
-        try {
-            final ClassLoader cl = button.getClass().getClassLoader();
-            final URL imageUrl = cl.getResource( iconFilename );
-            return ( imageUrl != null ) ? new ImageIcon( imageUrl ) : null;
-        }
-        catch ( final SecurityException se ) {
-            se.printStackTrace();
-            return null;
-        }
     }
 
     // TODO: Review all calling hierarchies for how selected vs. deselected
@@ -262,7 +236,7 @@ public class ButtonUtilities {
     public static final boolean setButtonIcons( final AbstractButton button,
                                                 final String iconFilename ) {
         // Get button icon from a JAR-resident resource, if applicable.
-        final Icon icon = getButtonIcon( button, iconFilename );
+        final Icon icon = IconFactory.makeImageIcon( iconFilename );
 
         // Try to set the button icons, and report whether they are null.
         return setButtonIcons( button, icon, icon );
@@ -273,8 +247,8 @@ public class ButtonUtilities {
                                                 final String enabledIconFilename,
                                                 final String disabledIconFilename ) {
         // Get button icons from JAR-resident resources, if applicable.
-        final Icon enabledIcon = getButtonIcon( button, enabledIconFilename );
-        final Icon disabledIcon = getButtonIcon( button, disabledIconFilename );
+        final Icon enabledIcon = IconFactory.makeImageIcon( enabledIconFilename );
+        final Icon disabledIcon = IconFactory.makeImageIcon( disabledIconFilename );
 
         // Try to set the button icons, and report whether they are null.
         return setButtonIcons( button, enabledIcon, disabledIcon );

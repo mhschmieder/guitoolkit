@@ -32,12 +32,15 @@ package com.mhschmieder.guitoolkit.component;
 
 import java.awt.Component;
 import java.awt.Image;
+import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
+
+import com.mhschmieder.guitoolkit.icon.IconFactory;
 
 /**
  * General utilities for working with Swing Tabs providing boilerplate code.
@@ -166,7 +169,29 @@ public class TabUtilities {
         }
         
         // Get an icon to show in the upper left corner of a tab.
-        final ImageIcon tabIcon = new ImageIcon( iconPath );
+        final URL iconUrl = IconFactory.class.getResource( iconPath );
+        return getTabIcon( iconUrl );
+    }
+    
+    /**
+     * Returns an ImageIcon that is scaled to fit in a tab.
+     * <p>
+     * NOTE: Swing TabbedPane does not directly support identifier icons, but
+     *  this boilerplate code is needed everywhere and unlikely to differ by
+     *  much, so is provided as a utility method here. In many cases, this icon
+     *  will then be loaded into a Label (which also likely will contain the tab
+     *  title), so we also provide a variant of this method that wraps this call.
+     * 
+     * @param iconUrl The URL of the icon image to use
+     * @return The ImageIcon that is scaled to fit in a tab
+     */
+    public static ImageIcon getTabIcon( final URL iconUrl ) {
+        if ( iconUrl == null ) {
+            return null;
+        }
+        
+        // Get an icon to show in the upper left corner of a tab.
+        final ImageIcon tabIcon = new ImageIcon( iconUrl );
         final Image normalImage = tabIcon.getImage();
         
         // Make a smaller icon that can fit in a Swing Tab with adequate margins.
