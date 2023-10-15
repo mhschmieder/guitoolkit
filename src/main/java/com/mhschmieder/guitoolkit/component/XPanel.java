@@ -289,7 +289,7 @@ public class XPanel extends JPanel
      * @since 1.0
      */
     @SuppressWarnings("static-method")
-    public boolean syncModelToView() {
+    public boolean updateModel() {
         return false;
     }
 
@@ -302,7 +302,7 @@ public class XPanel extends JPanel
      *
      * @since 1.0
      */
-    public void syncViewToModel() {}
+    public void updateView() {}
 
     ////////////// RenderingHintSource implementation methods ////////////////
 

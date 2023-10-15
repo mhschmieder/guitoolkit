@@ -763,7 +763,7 @@ public abstract class TableXPanel extends XPanel {
      * @since 1.0
      */
     @Override
-    public boolean syncModelToView() {
+    public boolean updateModel() {
         boolean modelChanged = false;
         final TableModel tableModel = table.getModel();
         final int numberOfRows = tableModel.getRowCount();
@@ -785,7 +785,7 @@ public abstract class TableXPanel extends XPanel {
      * @since 1.0
      */
     @Override
-    public void syncViewToModel() {}
+    public void updateView() {}
 
     /**
      * Sets the enablement of this panel, regarding user input response.
