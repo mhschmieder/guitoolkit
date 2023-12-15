@@ -96,9 +96,9 @@ public class TabUtilities {
                                        final String title,
                                        final Icon tabIcon ) {
         // First, add the tab component in the traditional way.
-        tabbedPane.add( title, tabComponent );
+        //tabbedPane.add( title, tabComponent );
         
-        final int tabIndex = tabbedPane.indexOfComponent( tabComponent );
+        //final int tabIndex = tabbedPane.indexOfComponent( tabComponent );
         
         // Now, make a custom wrapper that supports closable tabs.
         final ButtonTabComponent buttonTabComponent
@@ -107,7 +107,11 @@ public class TabUtilities {
         // Re-set the component at this tab so that it uses the custom wrapper
         // class that allows for closing the tab and that preserves its title,
         // noting that we have to "manually" reset the original tab icon here.
-        tabbedPane.setTabComponentAt( tabIndex, buttonTabComponent );
+        //tabbedPane.setTabComponentAt( tabIndex, buttonTabComponent );
+        
+        // Let it default to null tooltip and end of list as insert index. The
+        // tooltip is handled by the custom UI layout for the TabButton class.
+        tabbedPane.addTab( title, tabIcon, buttonTabComponent );
     }
     
     /**

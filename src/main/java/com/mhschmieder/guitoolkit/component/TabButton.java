@@ -101,7 +101,7 @@ public class TabButton extends JButton implements ActionListener {
         int size = 17;
         setPreferredSize( new Dimension( size, size ) );
         
-        setToolTipText( "Close this Tab" );
+        setToolTipText( "Close This Tab" );
         
         // Make the button looks the same for all LAF's.
         setUI( new BasicButtonUI() );
