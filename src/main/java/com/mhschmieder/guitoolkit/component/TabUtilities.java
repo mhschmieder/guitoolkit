@@ -62,9 +62,9 @@ public class TabUtilities {
     public static void addClosableTab( final JTabbedPane tabbedPane,
                                        final Component tabComponent,
                                        final JLabel tabLabel ) {
-        final String title = tabLabel.getText();
+        final String tabTitle = tabLabel.getText();
         final Icon tabIcon = tabLabel.getIcon();
-        addClosableTab( tabbedPane, tabComponent, title, tabIcon );
+        addClosableTab( tabbedPane, tabComponent, tabTitle, tabIcon );
     }
     
     /**
@@ -72,15 +72,16 @@ public class TabUtilities {
      * 
      * @param tabbedPane The Tabbed Pane to add the new Closable Tab to
      * @param tabComponent The Component that fills the Tab's Content Pane
-     * @param title The title to display in the Tab Label
-     * @param iconPath The file path for the Icon to display in the Tab Label
+     * @param tabTitle The title to display in the Tab Label
+     * @param iconResourceName The resource name of the Icon to display in
+     *                         the Tab Label
      */
     public static void addClosableTab( final JTabbedPane tabbedPane,
                                        final Component tabComponent,
-                                       final String title,
-                                       final String iconPath ) {
-        final Icon tabIcon = getTabIcon( iconPath );
-        addClosableTab( tabbedPane, tabComponent, title, tabIcon );
+                                       final String tabTitle,
+                                       final String iconResourceName ) {
+        final Icon tabIcon = makeTabIcon( iconResourceName );
+        addClosableTab( tabbedPane, tabComponent, tabTitle, tabIcon );
     }
     
     /**
@@ -88,16 +89,16 @@ public class TabUtilities {
      * 
      * @param tabbedPane The Tabbed Pane to add the new Closable Tab to
      * @param tabComponent The Component that fills the Tab's Content Pane
-     * @param title The title to display in the Tab Label
+     * @param tabTitle The title to display in the Tab Label
      * @param tabIcon The Icon to display in the Tab Label
      */
     public static void addClosableTab( final JTabbedPane tabbedPane,
                                        final Component tabComponent,
-                                       final String title,
+                                       final String tabTitle,
                                        final Icon tabIcon ) {
         // First, add the tab component in the traditional way, leaving out
         // the tooltip as our custom TabButton handles that in its UI layout.
-        tabbedPane.addTab( title, tabIcon, tabComponent );
+        tabbedPane.addTab( tabTitle, tabIcon, tabComponent );
         
         // Now, make a custom wrapper that supports closable tabs.
         final ButtonTabComponent buttonTabComponent
@@ -117,39 +118,40 @@ public class TabUtilities {
     /**
      * Returns a JLabel that includes a Tab Title and an optional Tab Icon.
      * 
-     * @param title The title to display in the Tab Label
-     * @param iconPath The file path for the Icon to display in the Tab Label
+     * @param tabTitle The title to display in the Tab Label
+     * @param iconResourceName The resource name of the Icon to display in
+     *                         the Tab Label
      * @return a JLabel that includes a Tab Title and an optional Tab Icon
      */
-    public static JLabel getTabLabel( final String title,
-                                      final String iconPath ) {
+    public static JLabel makeTabLabel( final String tabTitle,
+                                       final String iconResourceName ) {
         // It is mostly OK to pass in a null or empty title, regardless of
         // whether an icon file path is provided, so it is sufficient to just
         // check for the latter condition rather than add more complexity. In
         // any case, it is better to set the icon during initial construction.
-        final Icon tabIcon = getTabIcon( iconPath );
-        return getTabLabel( title, tabIcon );
+        final Icon tabIcon = makeTabIcon( iconResourceName );
+        return makeTabLabel( tabTitle, tabIcon );
     }
     
     /**
      * Returns a JLabel that includes a Tab Title and an optional Tab Icon.
      * 
-     * @param title The title to display in the Tab Label
+     * @param tabTitle The title to display in the Tab Label
      * @param tabIcon The Icon to display in the Tab Label
      * @return a JLabel that includes a Tab Title and an optional Tab Icon
      */
-    public static JLabel getTabLabel( final String title,
-                                      final Icon tabIcon ) {
+    public static JLabel makeTabLabel( final String tabTitle,
+                                       final Icon tabIcon ) {
         // It is mostly OK to pass in a null or empty title, regardless of
         // whether a tab icon is provided, so it is sufficient to just check
         // for the latter condition rather than add more complexity. In any
         // case, it is better to set the icon during initial construction.
         JLabel tabLabel;
         if ( tabIcon == null ) {
-            tabLabel = new JLabel( title, SwingConstants.LEADING );
+            tabLabel = new JLabel( tabTitle, SwingConstants.LEADING );
         }
         else {
-            tabLabel = new JLabel( title, tabIcon, SwingConstants.LEADING );
+            tabLabel = new JLabel( tabTitle, tabIcon, SwingConstants.LEADING );
         }
         
         return tabLabel;
@@ -159,29 +161,29 @@ public class TabUtilities {
      * Returns an ImageIcon that is scaled to fit in a tab.
      * <p>
      * NOTE: Swing TabbedPane does not directly support identifier icons, but
-     *  this boilerplate code is needed everywhere and unlikely to differ by
+     *  this boilerplate code is needed everywhere and is unlikely to differ by
      *  much, so is provided as a utility method here. In many cases, this icon
      *  will then be loaded into a Label (which also likely will contain the tab
      *  title), so we also provide a variant of this method that wraps this call.
      * 
-     * @param iconPath The full file path of the icon image to use
+     * @param iconResourceName The resource name of the icon image to use
      * @return The ImageIcon that is scaled to fit in a tab
      */
-    public static ImageIcon getTabIcon( final String iconPath ) {
-        if ( ( iconPath == null ) || iconPath.isEmpty() ) {
+    public static ImageIcon makeTabIcon( final String iconResourceName ) {
+        if ( ( iconResourceName == null ) || iconResourceName.isEmpty() ) {
             return null;
         }
         
         // Get an icon to show in the upper left corner of a tab.
-        final URL iconUrl = IconFactory.class.getResource( iconPath );
-        return getTabIcon( iconUrl );
+        final URL iconUrl = IconFactory.class.getResource( iconResourceName );
+        return makeTabIcon( iconUrl );
     }
     
     /**
      * Returns an ImageIcon that is scaled to fit in a tab.
      * <p>
      * NOTE: Swing TabbedPane does not directly support identifier icons, but
-     *  this boilerplate code is needed everywhere and unlikely to differ by
+     *  this boilerplate code is needed everywhere and is unlikely to differ by
      *  much, so is provided as a utility method here. In many cases, this icon
      *  will then be loaded into a Label (which also likely will contain the tab
      *  title), so we also provide a variant of this method that wraps this call.
@@ -189,7 +191,7 @@ public class TabUtilities {
      * @param iconUrl The URL of the icon image to use
      * @return The ImageIcon that is scaled to fit in a tab
      */
-    public static ImageIcon getTabIcon( final URL iconUrl ) {
+    public static ImageIcon makeTabIcon( final URL iconUrl ) {
         if ( iconUrl == null ) {
             return null;
         }
@@ -201,8 +203,40 @@ public class TabUtilities {
         // Make a smaller icon that can fit in a Swing Tab with adequate margins.
         final Image tabImage = normalImage.getScaledInstance( 
             20, 20, Image.SCALE_SMOOTH );
-        tabIcon.setImage(  tabImage  );
+        tabIcon.setImage( tabImage );
         
         return tabIcon;
+    }
+    
+    /**
+     * Adds the supplied Tab Component to the correct Tabbed Pane if not already
+     * present; but first removed it from the incorrect Tabbed Pane if present
+     * there. The Tab Component is combined with a supplied Tab Label, which may
+     * include both Text and an Icon, as otherwise we get blank or default text.
+     * 
+     * @param correctTabbedPane The Tabbed Pane that should receive the Tab
+     * @param wrongTabbedPane The Tabbed Pane that should remove the Tab
+     * @param tabComponent The Tab Component to use for the Tab to move or add
+     * @param tabLabel The Tab Label to use for the Tab to move or add
+     */
+    public static void moveTabToCorrectTabbedPane(
+            final JTabbedPane correctTabbedPane,
+            final JTabbedPane wrongTabbedPane,
+            final Component tabComponent,
+            final JLabel tabLabel ) {
+        // See if the tab component is already present in the correct tabbed pane.
+        if ( correctTabbedPane.indexOfComponent( tabComponent ) >= 0 ) {
+            return;
+        }
+        
+        // Otherwise, if the tab component is in the wrong tabbed pane, remove it.
+        final int tabIndex = wrongTabbedPane.indexOfComponent( tabComponent );
+        if ( tabIndex >= 0 ) {
+            wrongTabbedPane.remove( tabIndex );
+        }
+        
+        // Add a closable tab to the correct tabbed pane using our tab component.
+        // NOTE: If we don't do it this way, we get blank or "class name" titles.
+        addClosableTab( correctTabbedPane, tabComponent, tabLabel );
     }
 }
