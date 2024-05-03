@@ -210,7 +210,7 @@ public class TabUtilities {
     
     /**
      * Adds the supplied Tab Component to the correct Tabbed Pane if not already
-     * present; but first removed it from the incorrect Tabbed Pane if present
+     * present; but first removes it from the incorrect Tabbed Pane if present
      * there. The Tab Component is combined with a supplied Tab Label, which may
      * include both Text and an Icon, as otherwise we get blank or default text.
      * 
@@ -218,21 +218,57 @@ public class TabUtilities {
      * @param wrongTabbedPane The Tabbed Pane that should remove the Tab
      * @param tabComponent The Tab Component to use for the Tab to move or add
      * @param tabLabel The Tab Label to use for the Tab to move or add
+     * @param addIfNotPreset If {@code true}, add the Tab Component to the
+     *                       correct Tabbed Pane even if not present in any pane
      */
     public static void moveTabToCorrectTabbedPane(
             final JTabbedPane correctTabbedPane,
             final JTabbedPane wrongTabbedPane,
             final Component tabComponent,
-            final JLabel tabLabel ) {
+            final JLabel tabLabel,
+            final boolean addIfNotPreset ) {
+        // To avoid copy/paste code logic, make an array of one to pass forward.
+        final JTabbedPane[] wrongTabbedPanes = { wrongTabbedPane };
+        
+        moveTabToCorrectTabbedPane(
+            correctTabbedPane,
+            wrongTabbedPanes,
+            tabComponent,
+            tabLabel,
+            addIfNotPreset );
+    }
+    
+    /**
+     * Adds the supplied Tab Component to the correct Tabbed Pane if not already
+     * present; but first removes it from the incorrect Tabbed Pane if present
+     * there. The Tab Component is combined with a supplied Tab Label, which may
+     * include both Text and an Icon, as otherwise we get blank or default text.
+     * 
+     * @param correctTabbedPane The Tabbed Pane that should receive the Tab
+     * @param wrongTabbedPanes The Tabbed Panes that should remove the Tab
+     * @param tabComponent The Tab Component to use for the Tab to move or add
+     * @param tabLabel The Tab Label to use for the Tab to move or add
+     * @param addIfNotPreset If {@code true}, add the Tab Component to the
+     *                       correct Tabbed Pane even if not present in any pane
+     */
+    public static void moveTabToCorrectTabbedPane(
+            final JTabbedPane correctTabbedPane,
+            final JTabbedPane[] wrongTabbedPanes,
+            final Component tabComponent,
+            final JLabel tabLabel,
+            final boolean addIfNotPreset ) {
         // See if the tab component is already present in the correct tabbed pane.
         if ( correctTabbedPane.indexOfComponent( tabComponent ) >= 0 ) {
             return;
         }
         
         // Otherwise, if the tab component is in the wrong tabbed pane, remove it.
-        final int tabIndex = wrongTabbedPane.indexOfComponent( tabComponent );
-        if ( tabIndex >= 0 ) {
-            wrongTabbedPane.remove( tabIndex );
+        for ( final JTabbedPane wrongTabbedPane : wrongTabbedPanes ) {
+            final int tabIndex = wrongTabbedPane.indexOfComponent( tabComponent );
+            if ( tabIndex >= 0 ) {
+                wrongTabbedPane.remove( tabIndex );
+                break;
+            }
         }
         
         // Add a closable tab to the correct tabbed pane using our tab component.
