@@ -218,15 +218,12 @@ public class TabUtilities {
      * @param wrongTabbedPane The Tabbed Pane that should remove the Tab
      * @param tabComponent The Tab Component to use for the Tab to move or add
      * @param tabLabel The Tab Label to use for the Tab to move or add
-     * @param addIfNotPreset If {@code true}, add the Tab Component to the
-     *                       correct Tabbed Pane even if not present in any pane
      */
     public static void moveTabToCorrectTabbedPane(
             final JTabbedPane correctTabbedPane,
             final JTabbedPane wrongTabbedPane,
             final Component tabComponent,
-            final JLabel tabLabel,
-            final boolean addIfNotPreset ) {
+            final JLabel tabLabel ) {
         // To avoid copy/paste code logic, make an array of one to pass forward.
         final JTabbedPane[] wrongTabbedPanes = { wrongTabbedPane };
         
@@ -234,8 +231,7 @@ public class TabUtilities {
             correctTabbedPane,
             wrongTabbedPanes,
             tabComponent,
-            tabLabel,
-            addIfNotPreset );
+            tabLabel );
     }
     
     /**
@@ -248,15 +244,12 @@ public class TabUtilities {
      * @param wrongTabbedPanes The Tabbed Panes that should remove the Tab
      * @param tabComponent The Tab Component to use for the Tab to move or add
      * @param tabLabel The Tab Label to use for the Tab to move or add
-     * @param addIfNotPreset If {@code true}, add the Tab Component to the
-     *                       correct Tabbed Pane even if not present in any pane
      */
     public static void moveTabToCorrectTabbedPane(
             final JTabbedPane correctTabbedPane,
             final JTabbedPane[] wrongTabbedPanes,
             final Component tabComponent,
-            final JLabel tabLabel,
-            final boolean addIfNotPreset ) {
+            final JLabel tabLabel ) {
         // See if the tab component is already present in the correct tabbed pane.
         if ( correctTabbedPane.indexOfComponent( tabComponent ) >= 0 ) {
             return;
