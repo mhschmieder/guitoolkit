@@ -40,10 +40,22 @@ import javax.swing.KeyStroke;
 import com.mhschmieder.guitoolkit.icon.IconFactory;
 
 public class ButtonUtilities {
-    // We have chosen the ampersand as the mnemonic marker, to be compatible
-    // with Qt and other GUI toolkits, so that it is more likely that resource
-    // bundles can be shared.
-    public static final char    SWING_MNEMONIC_MARKER   = '&';
+    
+    /**
+     * The mnemonic marker in our action properties files was chosen many years
+     * ago and was set to match Qt and other GUI toolkit traditions in hopes
+     * that property files could be shared across languages. Rather than edit
+     * thousands of lines in properties files to match the enforced mnemonic 
+     * for JavaFX, this one has been retained for Swing menus.
+     */
+    public static final char SWING_MNEMONIC_MARKER = '&';
+    
+    /**
+     * JavaFX has an enforced mnemonic character, which is the underscore. As
+     * it would be a Herculean effort to change existing action property files,
+     * the older Swing mnemonic is retained, with a mapper method for JavaFX.
+     */
+    public static final char JAVAFX_MNEMONIC_MARKER = '_';
 
     public static final String getButtonDeselectedText( final String groupName,
                                                         final String itemName,
@@ -176,37 +188,55 @@ public class ButtonUtilities {
         return mnemonicKeyStroke.getKeyCode();
     }
 
-    public static final int getMnemonicMarkerIndex( final String key ) {
-        return key.indexOf( SWING_MNEMONIC_MARKER );
+    /**
+     * Return the index of the Swing mnemonic marker in the provided action label.
+     * 
+     * @param actionLabel The action label that contains a Swing mnemonic marker
+     * @return the index of the Swing mnemonic marker in the provided action label
+     */
+    public static final int getMnemonicMarkerIndex( final String actionLabel ) {
+        return actionLabel.indexOf( SWING_MNEMONIC_MARKER );
     }
 
-    public static final String handleMnemonicMarker( final String label,
+    /**
+     * Returns the provided action label with its Swing mnemonic marker either 
+     * stripped or replaced with the JavaFX mnemonic marker.
+     * 
+     * @param actionLabel The action label whose Swing mnemonic marker should either
+     *                    be stripped or replaced
+     * @param replaceMnemonic {@code true} if the Swing mnemonic marker should be
+     *                        replaced with the JavaFX mnemonic marker; {@code false}
+     *                        if it should simply be stripped without replacement
+     * @return the provided action label with its Swing mnemonic marker stripped
+     */
+    public static final String handleMnemonicMarker( final String actionLabel,
                                                      final boolean replaceMnemonic ) {
-        final int mnemonicMarkerIndex = getMnemonicMarkerIndex( label );
+        final int mnemonicMarkerIndex = getMnemonicMarkerIndex( actionLabel );
+ 
+        // NOTE: If no mnemonic marker is found, "-1" is returned, which is then
+        //  incremented to use the first character as the mnemonic (by default).
         final int mnemonicIndex = ( mnemonicMarkerIndex >= 0 )
             ? mnemonicMarkerIndex + 1
             : 0;
+        
         try {
-            // NOTE: If no mnemonic marker is found, "-1" is returned, which is
-            //  then incremented to use the first character as the mnemonic (by
-            //  default).
-            final String labelPreMnemonic = label
+            final String labelPreMnemonic = actionLabel
                     .substring( 0, mnemonicMarkerIndex );
-            final String labelPostMnemonic = label.substring( mnemonicIndex );
+            final String labelPostMnemonic = actionLabel.substring( mnemonicIndex );
 
-            // Conditionally strip the mnemonic marker from the label, or
+            // Conditionally strip the Swing mnemonic marker from the label, or
             // replace the Swing mnemonic marker with the one for JavaFX.
             final StringBuilder adjustedLabel = new StringBuilder();
             adjustedLabel.append( labelPreMnemonic );
             if ( replaceMnemonic ) {
-                adjustedLabel.append( SWING_MNEMONIC_MARKER );
+                adjustedLabel.append( JAVAFX_MNEMONIC_MARKER );
             }
             adjustedLabel.append( labelPostMnemonic );
             return adjustedLabel.toString();
         }
         catch ( final IndexOutOfBoundsException ioobe ) {
             ioobe.printStackTrace();
-            return label;
+            return actionLabel;
         }
     }
 
