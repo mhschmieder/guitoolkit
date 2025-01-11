@@ -34,8 +34,6 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
-import com.mhschmieder.guitoolkit.component.ButtonUtilities;
-
 /**
  * {@code IconFactory} is a factory class for making Swing based icons.
  *
