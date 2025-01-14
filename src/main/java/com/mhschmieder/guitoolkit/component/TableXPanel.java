@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,14 +32,12 @@ package com.mhschmieder.guitoolkit.component;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.CellEditor;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -306,12 +304,8 @@ public abstract class TableXPanel extends XPanel {
      * @since 1.0
      */
     protected void loadPanels() {
-        // Layout the scrollable table panel with its components, using the box
-        // layout to stack them vertically.
-        scrollableTablePanel = new JPanel();
-        scrollableTablePanel
-                .setLayout( new BoxLayout( scrollableTablePanel, BoxLayout.PAGE_AXIS ) );
-        scrollableTablePanel.add( table );
+        // Layout the scrollable table panel with its components.
+        scrollableTablePanel = TableUtilities.makeScrollableTablePanel( table );
     }
 
     /**
@@ -325,25 +319,12 @@ public abstract class TableXPanel extends XPanel {
      *
      * @since 1.0
      */
-    private final void loadScrollPanes( final int tableWidthPixels, final int tableHeightPixels ) {
-        scrollPane = new JScrollPane( scrollableTablePanel );
-
-        // Set the preferred size of the scroll pane. This limits the contained
-        // widget size such that if it gets larger than this specified size, the
-        // scroll pane will set the scroll bars (if they were not disabled).
-        //
-        // The scroll pane's preferred size is only used when the scroll pane
-        // wraps a non-scrollable widget, such as a JPanel vs. a JTable (even if
-        // the table is in the panel). Otherwise, the scrollable viewport size
-        // is used.
-        final Dimension tableSize = new Dimension( tableWidthPixels, tableHeightPixels );
-        table.setPreferredScrollableViewportSize( tableSize );
-        scrollPane.setPreferredSize( tableSize );
-
-        // Try to make mouse scroll wheel ticks move to the next table row.
-        //
-        // This might need to be based on the table's row height.
-        scrollPane.getVerticalScrollBar().setUnitIncrement( 8 );
+    private final void loadScrollPanes( final int tableWidthPixels,
+                                        final int tableHeightPixels ) {
+        scrollPane = TableUtilities.makeTableScrollPane( table,
+                                                         scrollableTablePanel,
+                                                         tableWidthPixels,
+                                                         tableHeightPixels );
     }
 
     /**
@@ -363,25 +344,15 @@ public abstract class TableXPanel extends XPanel {
         // Cache the Table Header in use status, for later export decisions.
         tableHeaderInUse = tableHeaderIsInUse;
 
-        // Layout the main panel with its components, using the box layout to
-        // stack them vertically.
+        // Layout the main panel with its components.
         //
-        // Wrapping a panel with a scroll pane vs. a table loses the table
-        // header, so we have to re-add it here. This is the preferred approach
-        // though, as it means no empty corners when the scroll bars are not
-        // present, and also that there is no gap between the table's right hand
-        // edge and its enclosing panel.
-        //
-        // Make the scroll pane conditional on whether the table is dynamic
-        // and/or could have too many rows to fit in its container?
-        mainPanel = new JPanel();
-        mainPanel.setLayout( new BoxLayout( mainPanel, BoxLayout.PAGE_AXIS ) );
-        mainPanel.setBorder( BorderFactory.createEmptyBorder( 0, 0, 0, 0 ) );
-        if ( tableHeaderInUse ) {
-            final JTableHeader tableHeader = table.getTableHeader();
-            mainPanel.add( tableHeader );
-        }
-        mainPanel.add( scrollPane );
+        // NOTE: No table control panel in this context as this version is for 
+        //  fixed size vs. dynamic tables.
+        mainPanel = TableUtilities.makeTablePanel( null, 
+                                                   null, 
+                                                   tableHeaderIsInUse, 
+                                                   scrollPane, 
+                                                   table );
 
         // Layout the main content.
         setLayout( new BorderLayout() );
