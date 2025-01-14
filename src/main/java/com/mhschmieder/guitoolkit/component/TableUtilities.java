@@ -30,6 +30,7 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
@@ -76,7 +77,8 @@ public class TableUtilities {
      *
      * @param table The reference table for the scrollbars
      * @param scrollableTablePanel The panel that wraps the table and that is
-     *                             the component supplied to the scroll pane.
+     *                             the component supplied to the scroll pane, or
+     *                             null to force it to be auto-created here
      * @param tableWidthPixels
      *            The width of the table's viewport, in pixels
      * @param tableHeightPixels
@@ -90,7 +92,10 @@ public class TableUtilities {
             final JPanel scrollableTablePanel,
             final int tableWidthPixels,
             final int tableHeightPixels ) {
-        final JScrollPane scrollPane = new JScrollPane( scrollableTablePanel );
+        final Component scrollPaneComponent = ( scrollableTablePanel != null )
+                ? scrollableTablePanel
+                : makeScrollableTablePanel( table );
+        final JScrollPane scrollPane = new JScrollPane( scrollPaneComponent );
         
         // Set the preferred size of the scroll pane. This limits the contained
         // widget size such that if it gets larger than this specified size, the
