@@ -122,20 +122,54 @@ public class TableUtilities {
         return scrollPane;
     }
 
-   /**
-    * Returns a panel that lays out the table with all of its additional
-    * controls, scrollbars, and optional title.
-    *  
-    * @param tableTitle An optional title to display above the table
-    * @param tableControlPanel An optional control panel to host buttons
-    *                          for working with tables, usually add and
-    *                          remove row buttons for dynamic tables
-    * @param tableHeaderInUse {@code true} if the table set its header
-    * @param tableScrollPane The scroll pane that wraps the table
-    * @param table The table to wrap in a full contextual layout hierarchy
-    * @return a panel that lays out the table with all of its components
-    */
-   public static JPanel makeTablePanel( final String tableTitle,
+    /**
+     * Returns a panel that lays out the table with all of its additional
+     * controls, scrollbars, and optional title.
+     *  
+     * @param tableTitle An optional title to display above the table
+     * @param tableControlPanel An optional control panel to host buttons
+     *                          for working with tables, usually add and
+     *                          remove row buttons for dynamic tables
+     * @param tableHeaderInUse {@code true} if the table set its header
+     * @param table The table to wrap in a full contextual layout hierarchy
+     * @param width The maximum width of the table
+     * @param height The maximum height of the table
+     * @return a panel that lays out the table with all of its components
+     */
+    public static JPanel makeTablePanel( final String tableTitle,
+                                         final JPanel tableControlPanel,
+                                         final boolean tableHeaderInUse,
+                                         final JTable table,
+                                         final int width,
+                                         final int height ) {
+       // We have to build a Scroll panel just for the table in order for the
+       // headers to show up.
+       final JScrollPane tableScrollPane = makeTableScrollPane(
+               table, null, width, height );
+
+       // Build our panel for this table and its controls.
+       return makeTablePanel(
+               tableTitle,
+               tableControlPanel,
+               true,
+               tableScrollPane,
+               table );
+    }
+
+    /**
+     * Returns a panel that lays out the table with all of its additional
+     * controls, scrollbars, and optional title.
+     *  
+     * @param tableTitle An optional title to display above the table
+     * @param tableControlPanel An optional control panel to host buttons
+     *                          for working with tables, usually add and
+     *                          remove row buttons for dynamic tables
+     * @param tableHeaderInUse {@code true} if the table set its header
+     * @param tableScrollPane The scroll pane that wraps the table
+     * @param table The table to wrap in a full contextual layout hierarchy
+     * @return a panel that lays out the table with all of its components
+     */
+    public static JPanel makeTablePanel( final String tableTitle,
                                          final JPanel tableControlPanel,
                                          final boolean tableHeaderInUse,
                                          final JScrollPane tableScrollPane,
