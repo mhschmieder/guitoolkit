@@ -8,7 +8,7 @@
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>GuiToolkit</name>
+    <name>guitoolkit</name>
     <url>https://github.com/mhschmieder/guitoolkit</url>
     <description>Utilities and custom classes for Java AWT and Swing based GUI work.</description>
 
