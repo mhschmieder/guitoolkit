@@ -30,12 +30,12 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import com.mhschmieder.guitoolkit.border.BorderUtilities;
+import com.mhschmieder.guitoolkit.table.TableHeaderRenderer;
+import com.mhschmieder.guitoolkit.table.TableInitializationUtilities;
+import com.mhschmieder.guitoolkit.table.TableVectorizationUtilities;
+import org.apache.commons.math3.util.FastMath;
 
 import javax.swing.BorderFactory;
 import javax.swing.CellEditor;
@@ -44,14 +44,12 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
-
-import org.apache.commons.math3.util.FastMath;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
-import com.mhschmieder.guitoolkit.border.BorderUtilities;
-import com.mhschmieder.guitoolkit.table.TableHeaderRenderer;
-import com.mhschmieder.guitoolkit.table.TableInitializationUtilities;
-import com.mhschmieder.guitoolkit.table.TableVectorizationUtilities;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 
 /**
  * {@code TableXPanel} is an abstract base class that serves as a

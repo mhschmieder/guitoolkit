@@ -30,14 +30,13 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.FlowLayout;
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import java.awt.FlowLayout;
 
 /**
  * Component to be used as tabComponent; contains a JLabel to show the text

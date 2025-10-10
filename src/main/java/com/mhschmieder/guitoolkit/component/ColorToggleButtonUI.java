@@ -30,14 +30,13 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import javax.swing.AbstractButton;
+import javax.swing.JComponent;
+import javax.swing.plaf.basic.BasicToggleButtonUI;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
-import javax.swing.AbstractButton;
-import javax.swing.JComponent;
-import javax.swing.plaf.basic.BasicToggleButtonUI;
 
 /**
  * A possibly superseded c lass that was used until 2008 for dealing with some

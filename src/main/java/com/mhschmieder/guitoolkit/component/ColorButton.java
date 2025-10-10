@@ -30,12 +30,11 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Color;
-import java.awt.Font;
+import com.mhschmieder.commonstoolkit.util.ClientProperties;
 
 import javax.swing.BorderFactory;
-
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
+import java.awt.Color;
+import java.awt.Font;
 
 public class ColorButton extends XButton {
     /**

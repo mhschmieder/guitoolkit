@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Component;
-import java.awt.Font;
-
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.Component;
+import java.awt.Font;
 
 /**
  * {@code DataViewCellRenderer} is a customized extension of

@@ -30,13 +30,12 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import com.mhschmieder.commonstoolkit.util.ClientProperties;
+
+import javax.swing.JToolBar;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-
-import javax.swing.JToolBar;
-
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
 
 public class XToolBar extends JToolBar {
     /**

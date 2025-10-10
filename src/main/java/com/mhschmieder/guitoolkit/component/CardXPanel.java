@@ -30,17 +30,15 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import org.apache.commons.math3.util.FastMath;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.LayoutManager;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-
-import org.apache.commons.math3.util.FastMath;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 /**
  * {@code CardXPanel} is a custom {@link XPanel} that wraps the usage of

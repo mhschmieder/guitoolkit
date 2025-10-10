@@ -30,20 +30,19 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import com.mhschmieder.commonstoolkit.util.ClientProperties;
+import com.mhschmieder.commonstoolkit.util.GlobalUtilities;
+
+import javax.swing.JButton;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.border.SoftBevelBorder;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Insets;
 import java.util.ResourceBundle;
-
-import javax.swing.JButton;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.border.SoftBevelBorder;
-
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
-import com.mhschmieder.commonstoolkit.util.GlobalUtilities;
 
 /**
  * {@code XButton} is an enhanced frame base class for Swing that adds

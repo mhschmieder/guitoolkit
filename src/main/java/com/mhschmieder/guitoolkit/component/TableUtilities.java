@@ -30,9 +30,6 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Component;
-import java.awt.Dimension;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -41,6 +38,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.JTableHeader;
+import java.awt.Component;
+import java.awt.Dimension;
 
 public class TableUtilities {
 

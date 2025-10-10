@@ -30,16 +30,15 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
+import org.apache.commons.math3.util.FastMath;
 
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
-
-import org.apache.commons.math3.util.FastMath;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 
 /**
  * {@code TableHeaderRenderer} customizes the {@link DefaultTableCellRenderer}

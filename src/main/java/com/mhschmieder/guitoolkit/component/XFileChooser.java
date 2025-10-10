@@ -30,17 +30,16 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.io.File;
-
-import javax.swing.JComponent;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileSystemView;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 /**
  * {@code XFileChooser} is an enhancement of the basic {@link JFileChooser}

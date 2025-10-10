@@ -30,13 +30,12 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.NumberFormat;
 import java.util.Locale;
-
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
 
 /**
  * {@code NumberCellRenderer} is a further specialization of

@@ -30,6 +30,12 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+
+import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -39,13 +45,6 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 /**
  * {@code XPanel} is an enhanced panel base class for Swing that adds

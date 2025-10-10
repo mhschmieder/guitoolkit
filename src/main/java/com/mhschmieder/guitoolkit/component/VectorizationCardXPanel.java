@@ -30,10 +30,9 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import javax.swing.JPanel;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
-
-import javax.swing.JPanel;
 
 /**
  * {@code VectorizationCardXPanel} is an example of a {@link CardXPanel} that

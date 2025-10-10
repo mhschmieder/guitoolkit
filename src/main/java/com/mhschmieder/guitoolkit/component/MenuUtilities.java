@@ -30,15 +30,14 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import com.mhschmieder.commonstoolkit.util.SystemType;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
-
-import com.mhschmieder.commonstoolkit.util.SystemType;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 // TODO: See how much of this got replicated in fxguitoolkit, merge the
 //  best code into this utility, then delete the redundant copies.

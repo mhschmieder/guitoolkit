@@ -30,15 +30,14 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import java.awt.Color;
+import java.awt.Dimension;
 
 public class LabeledTextFieldPanel extends XPanel {
     /**

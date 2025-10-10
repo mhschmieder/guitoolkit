@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.FlowLayout;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
+import java.awt.FlowLayout;
 
 // NOTE: This class is used to format a single button in a panel layout.
 // NOTE: This may be an obsolete component. Last used in 2014.

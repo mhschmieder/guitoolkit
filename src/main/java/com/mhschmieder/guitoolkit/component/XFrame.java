@@ -30,15 +30,14 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.HeadlessException;
 import java.awt.RenderingHints;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
 
 /**
  * {@code XFrame} is an enhanced frame base class for Swing that adds

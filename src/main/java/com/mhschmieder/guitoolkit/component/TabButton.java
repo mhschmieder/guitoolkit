@@ -30,6 +30,11 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JTabbedPane;
+import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
@@ -41,12 +46,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JTabbedPane;
-import javax.swing.plaf.basic.BasicButtonUI;
 
 public class TabButton extends JButton implements ActionListener {
     /**

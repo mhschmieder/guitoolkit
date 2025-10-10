@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.guitoolkit.icon;
 
-import java.awt.Color;
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 import javax.swing.ImageIcon;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import java.awt.Color;
 
 /**
  * {@code LogoUtilities} is a utility class for logo management in Swing.

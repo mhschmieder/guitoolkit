@@ -30,21 +30,20 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Insets;
-import java.util.ResourceBundle;
+import com.mhschmieder.commonstoolkit.util.ClientProperties;
+import com.mhschmieder.commonstoolkit.util.GlobalUtilities;
 
 import javax.swing.Icon;
 import javax.swing.JToggleButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.SoftBevelBorder;
-
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
-import com.mhschmieder.commonstoolkit.util.GlobalUtilities;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FontMetrics;
+import java.awt.Insets;
+import java.util.ResourceBundle;
 
 /**
  * {@code XToggleButton} is an enhanced frame base class for Swing that adds

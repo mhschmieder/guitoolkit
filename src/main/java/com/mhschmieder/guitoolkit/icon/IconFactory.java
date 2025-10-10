@@ -30,9 +30,8 @@
  */
 package com.mhschmieder.guitoolkit.icon;
 
-import java.net.URL;
-
 import javax.swing.ImageIcon;
+import java.net.URL;
 
 /**
  * {@code IconFactory} is a factory class for making Swing based icons.

@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Component;
-import java.util.List;
-
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import java.awt.Component;
+import java.util.List;
 
 /**
  * {@code ComboBoxCellEditor} is a specialization of {@link XCellEditor} to

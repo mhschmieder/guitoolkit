@@ -30,14 +30,13 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.util.ResourceBundle;
-
-import javax.swing.Icon;
-import javax.swing.JMenuItem;
-
 import com.mhschmieder.commonstoolkit.util.ClientProperties;
 import com.mhschmieder.commonstoolkit.util.GlobalUtilities;
 import com.mhschmieder.commonstoolkit.util.SystemType;
+
+import javax.swing.Icon;
+import javax.swing.JMenuItem;
+import java.util.ResourceBundle;
 
 public class XMenuItem  extends JMenuItem {
     /**

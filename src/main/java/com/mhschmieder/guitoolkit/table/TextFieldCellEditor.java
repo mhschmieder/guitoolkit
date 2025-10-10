@@ -30,13 +30,12 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Component;
+import com.mhschmieder.graphicstoolkit.color.ColorConstants;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-
-import com.mhschmieder.graphicstoolkit.color.ColorConstants;
+import java.awt.Component;
 
 /**
  * {@code TextFieldCellEditor} is a specialization of {@link XCellEditor} to

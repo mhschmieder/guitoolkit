@@ -30,9 +30,8 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Component;
-
 import javax.swing.JTable;
+import java.awt.Component;
 
 /**
  * {@code BlankingCellEditor} is a further specialization of

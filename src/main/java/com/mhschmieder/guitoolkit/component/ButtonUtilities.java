@@ -30,14 +30,13 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
+import com.mhschmieder.guitoolkit.icon.IconFactory;
 
 import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.KeyStroke;
-
-import com.mhschmieder.guitoolkit.icon.IconFactory;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class ButtonUtilities {
     

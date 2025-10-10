@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.Component;
 
 /**
  * {@code TextFieldCellRenderer} customizes the special {@link XCellRenderer}

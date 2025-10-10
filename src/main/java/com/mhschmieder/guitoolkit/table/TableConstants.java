@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Color;
-
 import com.mhschmieder.graphicstoolkit.color.ColorConstants;
+
+import java.awt.Color;
 
 /**
  * {@code TableConstants} is a container for constants related to tables,

@@ -30,10 +30,9 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Component;
-
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
+import java.awt.Component;
 
 /**
  * {@code CheckBoxCellEditor} is a specialization of {@link XCellEditor} to

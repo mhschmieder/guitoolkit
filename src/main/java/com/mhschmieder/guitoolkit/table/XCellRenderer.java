@@ -30,13 +30,12 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Component;
-import java.awt.Font;
+import org.apache.commons.math3.util.FastMath;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-
-import org.apache.commons.math3.util.FastMath;
+import java.awt.Component;
+import java.awt.Font;
 
 /**
  * {@code XCellRenderer} is a custom base class that extends

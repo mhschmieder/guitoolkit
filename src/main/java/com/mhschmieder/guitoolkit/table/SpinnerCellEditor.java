@@ -30,15 +30,14 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.util.EventObject;
-
 import javax.swing.AbstractCellEditor;
 import javax.swing.AbstractSpinnerModel;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
+import java.awt.Component;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
 
 /**
  * {@code SpinnerCellEditor} extends the {@link AbstractCellEditor} base class

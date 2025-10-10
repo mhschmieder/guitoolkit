@@ -30,16 +30,15 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import java.awt.Color;
+import java.awt.Dimension;
 
 // NOTE: This class is used to format a single combo box in a panel layout.
 // NOTE: This may be an obsolete component. Last used in 2014.

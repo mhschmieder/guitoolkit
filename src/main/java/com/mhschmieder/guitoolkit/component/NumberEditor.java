@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import javax.swing.JTextField;
 import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.util.Locale;
-
-import javax.swing.JTextField;
 
 /**
  * {@code NumberEditor} is a specialization of {@link JTextField} that takes

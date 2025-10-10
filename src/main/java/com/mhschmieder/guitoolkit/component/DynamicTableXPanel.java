@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.EventQueue;
-
 import org.apache.commons.math3.util.FastMath;
+
+import java.awt.EventQueue;
 
 /**
  * {@code DynamicTableXPanel} is a further abstraction of {@link TableXPanel}

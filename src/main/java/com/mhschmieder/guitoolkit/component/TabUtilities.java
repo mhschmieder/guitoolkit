@@ -30,17 +30,16 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Component;
-import java.awt.Image;
-import java.net.URL;
+import com.mhschmieder.guitoolkit.icon.IconFactory;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
-
-import com.mhschmieder.guitoolkit.icon.IconFactory;
+import java.awt.Component;
+import java.awt.Image;
+import java.net.URL;
 
 /**
  * General utilities for working with Swing Tabs providing boilerplate code.

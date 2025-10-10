@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.guitoolkit.icon;
 
+import javax.swing.Icon;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
-
-import javax.swing.Icon;
 
 /**
  * {@code ButtonIcon} is a specific implementation of the {@link Icon} interface

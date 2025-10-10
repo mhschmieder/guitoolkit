@@ -30,15 +30,14 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Component;
-import java.awt.EventQueue;
+import org.apache.commons.math3.util.FastMath;
 
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
-import org.apache.commons.math3.util.FastMath;
+import java.awt.Component;
+import java.awt.EventQueue;
 
 /**
  * {@code TableInitializationUtilities} is a utility class for Swing based table

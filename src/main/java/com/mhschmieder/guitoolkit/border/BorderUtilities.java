@@ -30,13 +30,12 @@
  */
 package com.mhschmieder.guitoolkit.border;
 
-import java.awt.Color;
+import com.mhschmieder.graphicstoolkit.color.ColorConstants;
 
 import javax.swing.BorderFactory;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-
-import com.mhschmieder.graphicstoolkit.color.ColorConstants;
+import java.awt.Color;
 
 /**
  * {@code BorderUtilities} is a utility class for working more effectively and

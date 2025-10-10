@@ -30,16 +30,15 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import java.awt.Color;
+import java.awt.Dimension;
 
 /**
  * {@code LogoXPanel} is a special layout panel that handles some of the issues

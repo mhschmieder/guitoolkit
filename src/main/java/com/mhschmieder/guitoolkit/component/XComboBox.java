@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.util.HashSet;
-
 import javax.swing.JComboBox;
 import javax.swing.JSlider;
 import javax.swing.ListCellRenderer;
+import java.util.HashSet;
 
 /**
  * {@code XSlider} is an enhancement of the regular {@link JSlider} to formalize

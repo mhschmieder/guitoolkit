@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.Component;
 
 /**
  * {@code ToggleButtonCellRenderer} is a further specialization of

@@ -30,19 +30,17 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Hashtable;
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import org.apache.commons.math3.util.FastMath;
 
 import javax.swing.BorderFactory;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-
-import org.apache.commons.math3.util.FastMath;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Hashtable;
 
 /**
  * {@code XSlider} is an enhancement of the regular {@link JSlider} to formalize

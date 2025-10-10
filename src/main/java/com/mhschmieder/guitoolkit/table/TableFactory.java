@@ -30,14 +30,13 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Color;
+import com.mhschmieder.guitoolkit.component.XTable;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
-
-import com.mhschmieder.guitoolkit.component.XTable;
+import java.awt.Color;
 
 /**
  * {@code TableFactory} is a factory class for making customized Swing based

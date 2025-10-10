@@ -30,13 +30,13 @@
  */
 package com.mhschmieder.guitoolkit.icon;
 
+import org.apache.commons.math3.util.FastMath;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
-
-import org.apache.commons.math3.util.FastMath;
 
 /**
  * {@code TextIcon} is a specialization of {@link ButtonIcon} that renders text

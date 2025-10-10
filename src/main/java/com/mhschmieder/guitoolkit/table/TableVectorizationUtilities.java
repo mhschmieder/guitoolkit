@@ -30,12 +30,8 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.util.HashSet;
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import org.apache.commons.math3.util.FastMath;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -44,10 +40,12 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
-
-import org.apache.commons.math3.util.FastMath;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.util.HashSet;
 
 /**
  * {@code TableVectorizationUtilities} is a utility class for Swing based table

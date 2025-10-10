@@ -30,11 +30,10 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * {@code NumberVerifier} is a simple {@link InputVerifier} implementation that

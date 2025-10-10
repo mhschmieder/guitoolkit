@@ -30,15 +30,14 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.Icon;
 import javax.swing.JList;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import java.awt.Color;
+import java.awt.Component;
 
 /**
  * {@code DisabledItemsRenderer} is a specialized Combo Box list cell renderer

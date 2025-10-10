@@ -30,19 +30,18 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.util.HashSet;
-
-import javax.swing.JTable;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-
 import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 import com.mhschmieder.guitoolkit.table.DataViewCellRenderer;
 import com.mhschmieder.guitoolkit.table.DataViewTableModel;
 import com.mhschmieder.guitoolkit.table.TableVectorizationUtilities;
+
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.util.HashSet;
 
 /**
  * {@code DataViewXComponent} is an abstract base class that serves as a

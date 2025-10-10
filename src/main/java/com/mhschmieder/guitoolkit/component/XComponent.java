@@ -30,17 +30,16 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
 
 import javax.swing.JComponent;
 import javax.swing.JRootPane;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 /**
  * {@code XComponent} is an enhanced panel base class for Swing that adds

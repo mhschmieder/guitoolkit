@@ -30,13 +30,8 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import java.awt.AWTEvent;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.util.EventObject;
+import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
+import com.mhschmieder.guitoolkit.table.TableConstants;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -50,9 +45,13 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.text.JTextComponent;
-
-import com.mhschmieder.graphicstoolkit.color.ColorUtilities;
-import com.mhschmieder.guitoolkit.table.TableConstants;
+import java.awt.AWTEvent;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.util.EventObject;
 
 /**
  * {@code XTable} is an enhanced table base class for Swing that adds

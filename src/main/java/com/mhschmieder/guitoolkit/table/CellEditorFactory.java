@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import javax.swing.DefaultCellEditor;
-
 import com.mhschmieder.guitoolkit.component.NumberEditor;
+
+import javax.swing.DefaultCellEditor;
 
 /**
  * {@code CellEditorFactory} is a factory class for making customized Table

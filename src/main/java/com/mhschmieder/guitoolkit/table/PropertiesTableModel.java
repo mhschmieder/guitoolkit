@@ -30,9 +30,8 @@
  */
 package com.mhschmieder.guitoolkit.table;
 
-import java.util.List;
-
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 /**
  * {@code PropertiesTableModel} is a specialization of {@link DefaultTableModel}

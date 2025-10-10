@@ -30,16 +30,15 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
+import org.apache.commons.math3.util.FastMath;
+
+import javax.swing.JPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
-
-import javax.swing.JPanel;
-
-import org.apache.commons.math3.util.FastMath;
 
 /**
  * {@code TitledVectorizationXPanel} is an example of a top-level Swing

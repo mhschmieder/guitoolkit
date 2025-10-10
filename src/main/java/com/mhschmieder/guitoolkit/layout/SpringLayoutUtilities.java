@@ -30,12 +30,11 @@
  */
 package com.mhschmieder.guitoolkit.layout;
 
-import java.awt.Component;
-import java.awt.Container;
-
 import javax.swing.Spring;
 import javax.swing.SpringLayout;
 import javax.swing.SpringLayout.Constraints;
+import java.awt.Component;
+import java.awt.Container;
 
 /**
  * {@code SpringLayoutUtilities} is a utility class for working more effectively
