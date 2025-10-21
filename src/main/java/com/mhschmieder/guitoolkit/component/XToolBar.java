@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
+import com.mhschmieder.jcommons.util.ClientProperties;
 
 import javax.swing.JToolBar;
 import java.awt.Graphics;

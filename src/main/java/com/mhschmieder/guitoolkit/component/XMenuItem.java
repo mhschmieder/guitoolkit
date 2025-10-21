@@ -30,9 +30,9 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import com.mhschmieder.commonstoolkit.util.ClientProperties;
-import com.mhschmieder.commonstoolkit.util.GlobalUtilities;
-import com.mhschmieder.commonstoolkit.util.SystemType;
+import com.mhschmieder.jcommons.util.ClientProperties;
+import com.mhschmieder.jcommons.util.GlobalUtilities;
+import com.mhschmieder.jcommons.util.SystemType;
 
 import javax.swing.Icon;
 import javax.swing.JMenuItem;

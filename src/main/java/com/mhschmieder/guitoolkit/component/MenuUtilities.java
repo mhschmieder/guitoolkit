@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.guitoolkit.component;
 
-import com.mhschmieder.commonstoolkit.util.SystemType;
+import com.mhschmieder.jcommons.util.SystemType;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
