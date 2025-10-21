@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2020, 2023 Mark Schmieder
+ * Copyright (c) 2020, 2025 Mark Schmieder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -65,7 +65,6 @@ public class ButtonUtilities {
 
     // TODO: Review all calling hierarchies for how selected vs. deselected
     //  is handled, as well as examining the properties files to see if present.
-    @SuppressWarnings("nls")
     public static String getButtonLabel( final String groupName,
                                          final String itemName,
                                          //final boolean selected,
