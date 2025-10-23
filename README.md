@@ -1,7 +1,8 @@
-# GuiToolkit
-The GuiToolkit library is an open source project for Java 8 that serves as a small collection of basic utilities and custom classes for stuff that is needed by a lot of AWT and Swing oriented code bases.
+# JControls
 
-This is a smaller library than GraphicsToolkit, as I haven't done Swing GUI development in years (I switched to JavaFX when it debuted; although the first couple of years were painful hybrid development), so most of my older approaches are long-deleted. Mostly, I have to use Swing and/or AWT when preparing reports and graphics exports that rely on AWT as most of that stuff is quite difficult to convert to a JavaFX Scene Graph based rendering base due to no repaint loop.
+The JControls library is an open source project for Java 8 that serves as a small collection of basic utilities and custom classes for stuff that is needed by a lot of AWT and Swing oriented GUI code bases.
+
+This is a smaller library than JGraphics, as I haven't done Swing GUI development in years (I switched to JavaFX when it debuted; although the first couple of years were painful hybrid development), so most of my older approaches are long-deleted. Mostly, I have to use Swing and/or AWT when preparing reports and graphics exports that rely on AWT as most of that stuff is quite difficult to convert to a JavaFX Scene Graph based rendering base due to no repaint loop.
 
 I plan to pull in some legacy functions that had fallen out of use once I switched to mostly JavaFX based development, and they have been improved to be more up-to-date with Java 8 standards, but I do not have the ability at the moment to rigorously retest them.
 
@@ -15,4 +16,4 @@ The Javadocs are 100% compliant and complete, but I am still learning how to pub
 
 As a confidence boost at both ends, GuiUtilities has a main() function that prints "Hello Maven from GuiToolkit" to the console (e.g. the one in Eclipse IDE). By running Maven's clean task, then the install task, you can quickly gain confidence that everything is integrated properly, by then running the main class and seeing the console and confirming that this library was the source of the validation message.
 
-This projects depends on my GraphicsToolkit library, and is marked as such in the Maven POM file.
+This projects depends on my JGraphics library, and is marked as such in the Maven POM file.
