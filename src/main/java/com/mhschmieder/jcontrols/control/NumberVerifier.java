@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,14 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jcontrols Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jcontrols
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jcontrols
  */
-package com.mhschmieder.jcontrols.component;
+package com.mhschmieder.jcontrols.control;
+
+import org.apache.commons.math3.util.FastMath;
 
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
@@ -73,7 +75,8 @@ public class NumberVerifier extends InputVerifier implements ActionListener {
      *
      * @version 1.0
      */
-    public NumberVerifier( final double minimumValue, final double maximumValue ) {
+    public NumberVerifier( final double minimumValue,
+                           final double maximumValue ) {
         // No need to call the superclass as it's abstract and has no
         // constructor or data fields to set.
         minimum = minimumValue;
@@ -92,7 +95,8 @@ public class NumberVerifier extends InputVerifier implements ActionListener {
      *
      * @version 1.0
      */
-    public void setNumberRange( final double minimumValue, final double maximumValue ) {
+    public void setNumberRange( final double minimumValue,
+                                final double maximumValue ) {
         setMinimum( minimumValue );
         setMaximum( maximumValue );
     }
@@ -133,7 +137,9 @@ public class NumberVerifier extends InputVerifier implements ActionListener {
      * @version 1.0
      */
     public double getNormalizedValue( final double value ) {
-        return ( value < minimum ) ? minimum : ( value > maximum ) ? maximum : value;
+        return ( value < minimum )
+                ? minimum
+                : FastMath.min( value, maximum );
     }
 
     /**

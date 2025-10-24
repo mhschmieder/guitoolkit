@@ -28,7 +28,9 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.jcontrols.component;
+package com.mhschmieder.jcontrols.control;
+
+import com.mhschmieder.jcontrols.component.ButtonTabComponent;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;

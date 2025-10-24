@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.jcontrols.component;
+package com.mhschmieder.jcontrols.control;
 
 /**
  * {@code AngleVerifier} is a specialization of {@link NumberVerifier} whose
@@ -113,5 +113,4 @@ public class AngleVerifier extends NumberVerifier {
 
         return normalizedValue;
     }
-
 }

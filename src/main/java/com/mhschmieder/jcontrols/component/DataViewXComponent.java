@@ -30,6 +30,7 @@
  */
 package com.mhschmieder.jcontrols.component;
 
+import com.mhschmieder.jcontrols.control.XTable;
 import com.mhschmieder.jcontrols.table.DataViewCellRenderer;
 import com.mhschmieder.jcontrols.table.DataViewTableModel;
 import com.mhschmieder.jcontrols.table.TableVectorizationUtilities;

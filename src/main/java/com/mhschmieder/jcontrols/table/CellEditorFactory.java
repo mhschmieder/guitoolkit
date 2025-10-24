@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.jcontrols.table;
 
-import com.mhschmieder.jcontrols.component.NumberEditor;
+import com.mhschmieder.jcontrols.control.NumberEditor;
 
 import javax.swing.DefaultCellEditor;
 

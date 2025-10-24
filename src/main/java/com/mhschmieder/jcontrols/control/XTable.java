@@ -28,8 +28,9 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.jcontrols.component;
+package com.mhschmieder.jcontrols.control;
 
+import com.mhschmieder.jcontrols.util.ForegroundManager;
 import com.mhschmieder.jcontrols.table.TableConstants;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 

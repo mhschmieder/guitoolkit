@@ -30,6 +30,8 @@
  */
 package com.mhschmieder.jcontrols.component;
 
+import com.mhschmieder.jcontrols.control.TabButton;
+
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -102,7 +104,7 @@ public class ButtonTabComponent extends JPanel {
         label.setBorder( BorderFactory.createEmptyBorder( 0, 0, 0, 5 ) );
         
         // Make the Tab Button.
-        final JButton button = new TabButton( tabbedPane, this );        
+        final JButton button = new TabButton( tabbedPane, this );
         add( button );
         
         // Add more space to the top of the component.

@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.jcontrols.component;
+package com.mhschmieder.jcontrols.layout;
 
 /**
  * {@code CardManager} is an interface that establishes the contract for what

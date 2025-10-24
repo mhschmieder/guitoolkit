@@ -30,6 +30,7 @@
  */
 package com.mhschmieder.jcontrols.component;
 
+import com.mhschmieder.jcontrols.layout.CardManager;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 import org.apache.commons.math3.util.FastMath;
 

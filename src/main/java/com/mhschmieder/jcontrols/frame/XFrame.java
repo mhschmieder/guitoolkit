@@ -28,7 +28,10 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.jcontrols.component;
+package com.mhschmieder.jcontrols.frame;
+
+import com.mhschmieder.jcontrols.util.ForegroundManager;
+import com.mhschmieder.jcontrols.util.RenderingHintSource;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

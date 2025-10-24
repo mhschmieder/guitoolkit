@@ -30,6 +30,7 @@
  */
 package com.mhschmieder.jcontrols.component;
 
+import com.mhschmieder.jcontrols.control.XComboBox;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 
 import javax.swing.BorderFactory;
@@ -51,7 +52,7 @@ public class ComboBoxPanel extends XPanel {
     // //////////////////////////////////////////////////////////////////////////
     // Panel View Variables
     public JLabel               _label              = null;
-    public XComboBox            _comboBox           = null;
+    public XComboBox _comboBox           = null;
 
     // //////////////////////////////////////////////////////////////////////////
     // Constructors and Initialization

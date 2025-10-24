@@ -28,7 +28,7 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.jcontrols.component;
+package com.mhschmieder.jcontrols.control;
 
 /**
  * {@code ComponentFactory} is a factory class for making customized Swing based
@@ -40,7 +40,7 @@ package com.mhschmieder.jcontrols.component;
  *
  * @author Mark Schmieder
  */
-public final class ComponentFactory {
+public final class ControlFactory {
 
     /**
      * Default minimum percentile, for full range editing.
@@ -55,7 +55,7 @@ public final class ComponentFactory {
     /**
      * The default constructor is disabled, as this is a static factory class.
      */
-    private ComponentFactory() {}
+    private ControlFactory() {}
 
     ////////////////////// Slider pseudo-constructors ////////////////////////
 
@@ -73,9 +73,9 @@ public final class ComponentFactory {
      *
      * @version 1.0
      */
-    public static XSlider makePercentSlider( final NumberEditor pairedNumberEditor,
-                                             final int sliderOrientation,
-                                             final int initialPercentile ) {
+    public static XSlider makePercentSlider(final NumberEditor pairedNumberEditor,
+                                            final int sliderOrientation,
+                                            final int initialPercentile ) {
         return makePercentSlider( pairedNumberEditor,
                                   sliderOrientation,
                                   MINIMUM_PERCENTILE_DEFAULT,
@@ -112,5 +112,4 @@ public final class ComponentFactory {
                             maximumPercentile,
                             initialPercentile );
     }
-
 }

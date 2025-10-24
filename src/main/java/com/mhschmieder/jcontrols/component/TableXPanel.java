@@ -31,6 +31,8 @@
 package com.mhschmieder.jcontrols.component;
 
 import com.mhschmieder.jcontrols.border.BorderUtilities;
+import com.mhschmieder.jcontrols.control.TableUtilities;
+import com.mhschmieder.jcontrols.control.XTable;
 import com.mhschmieder.jcontrols.table.TableHeaderRenderer;
 import com.mhschmieder.jcontrols.table.TableInitializationUtilities;
 import com.mhschmieder.jcontrols.table.TableVectorizationUtilities;

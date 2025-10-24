@@ -30,6 +30,8 @@
  */
 package com.mhschmieder.jcontrols.component;
 
+import com.mhschmieder.jcontrols.util.ForegroundManager;
+import com.mhschmieder.jcontrols.util.RenderingHintSource;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 
 import javax.swing.JPanel;

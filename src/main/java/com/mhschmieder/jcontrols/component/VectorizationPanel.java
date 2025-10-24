@@ -30,6 +30,9 @@
  */
 package com.mhschmieder.jcontrols.component;
 
+import com.mhschmieder.jcontrols.util.VectorSource;
+import com.mhschmieder.jcontrols.util.VectorizationManager;
+
 import javax.swing.JPanel;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;

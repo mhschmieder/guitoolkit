@@ -28,8 +28,9 @@
  *
  * Project: https://github.com/mhschmieder/guitoolkit
  */
-package com.mhschmieder.jcontrols.component;
+package com.mhschmieder.jcontrols.control;
 
+import com.mhschmieder.jcontrols.util.ForegroundManager;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 import org.apache.commons.math3.util.FastMath;
 

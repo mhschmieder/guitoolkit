@@ -30,7 +30,7 @@
  */
 package com.mhschmieder.jcontrols.table;
 
-import com.mhschmieder.jcontrols.component.XTable;
+import com.mhschmieder.jcontrols.control.XTable;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellEditor;
