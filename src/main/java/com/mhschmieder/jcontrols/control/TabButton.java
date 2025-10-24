@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2023 Mark Schmieder
+ * Copyright (c) 2023, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jcontrols Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jcontrols
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jcontrols
  */
 package com.mhschmieder.jcontrols.control;
-
-import com.mhschmieder.jcontrols.component.ButtonTabComponent;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -82,22 +80,22 @@ public class TabButton extends JButton implements ActionListener {
     // The TabbedPane that owns this custom TabButton.
     private final JTabbedPane tabbedPane;
     
-    // The ButtonTabComponent that owns this custom TabButton.
-    private final ButtonTabComponent buttonTabComponent;
+    // The Component that owns this custom TabButton.
+    private final Component parent;
 
     /**
      * Create a TabButton instance, using the supplied arguments.
      * 
      * @param pTabbedPane The Tabbed Pane that owns this custom Tab Button
-     * @param pButtonTabComponent The Button Tab Component that owns this Tab Button
+     * @param pParent The Button Tab Component that owns this Tab Button
      */
     public TabButton( final JTabbedPane pTabbedPane,
-                      final ButtonTabComponent pButtonTabComponent ) {
+                      final Component pParent ) {
         // Always call the superclass constructor first!
         super();
         
         tabbedPane = pTabbedPane;
-        buttonTabComponent = pButtonTabComponent;
+        parent = pParent;
         
         int size = 17;
         setPreferredSize( new Dimension( size, size ) );
@@ -125,7 +123,7 @@ public class TabButton extends JButton implements ActionListener {
 
     @Override 
     public void actionPerformed( final ActionEvent e ) {
-        int tabIndex = tabbedPane.indexOfTabComponent( buttonTabComponent );
+        int tabIndex = tabbedPane.indexOfTabComponent( parent );
         if ( tabIndex != -1 ) {
             tabbedPane.remove( tabIndex);
         }

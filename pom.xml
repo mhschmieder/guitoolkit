@@ -10,7 +10,7 @@
 
     <name>jcontrols</name>
     <url>https://github.com/mhschmieder/jcontrols</url>
-    <description>Utilities and custom classes for Java AWT and Swing based GUI work.</description>
+    <description>Utilities and custom classes for Java AWT and Swing based GUI controls.</description>
 
     <licenses>
         <license>

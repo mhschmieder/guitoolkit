@@ -30,8 +30,8 @@
  */
 package com.mhschmieder.jcontrols.control;
 
-import com.mhschmieder.jcontrols.util.ForegroundManager;
 import com.mhschmieder.jcontrols.table.TableConstants;
+import com.mhschmieder.jcontrols.util.ForegroundManager;
 import com.mhschmieder.jgraphics.color.ColorUtilities;
 
 import javax.swing.JCheckBox;
