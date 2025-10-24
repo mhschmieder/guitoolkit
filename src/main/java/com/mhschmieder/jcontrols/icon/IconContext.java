@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2020, 2022 Mark Schmieder
+ * Copyright (c) 2020, 2025, Mark Schmieder. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * This file is part of the GuiToolkit Library
+ * This file is part of the jcontrols Library
  *
- * You should have received a copy of the MIT License along with the
- * GuiToolkit Library. If not, see <https://opensource.org/licenses/MIT>.
+ * You should have received a copy of the MIT License along with the jcontrols
+ * Library. If not, see <https://opensource.org/licenses/MIT>.
  *
- * Project: https://github.com/mhschmieder/guitoolkit
+ * Project: https://github.com/mhschmieder/jcontrols
  */
 package com.mhschmieder.jcontrols.icon;
 
 /**
  * {@code IconContext} is an enumeration of different contexts where icons are
- * used. This can help in determining proper sizing, insets, etc.
+ * used in Swing/AWT. This can help in determining proper sizing, insets, etc.
  *
  * @version 1.0
  *
